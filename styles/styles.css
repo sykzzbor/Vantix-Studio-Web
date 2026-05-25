@@ -1654,6 +1654,39 @@ img {
     font-weight: 400;
 }
 
+.footer-bottom-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.footer-privacy-link {
+    font-size: 11px;
+    color: rgba(245, 247, 250, 0.28);
+    font-weight: 400;
+    transition: color 0.2s;
+}
+
+.footer-privacy-link:hover {
+    color: rgba(245, 247, 250, 0.65);
+}
+
+.form-privacy {
+    text-align: center;
+    font-size: 11.5px;
+    color: rgba(245, 247, 250, 0.28);
+    margin-top: 0.6rem;
+}
+
+.form-privacy a {
+    color: rgba(79, 124, 255, 0.7);
+    transition: color 0.2s;
+}
+
+.form-privacy a:hover {
+    color: #4F7CFF;
+}
+
 
 /* ─── Scroll reveal ──────────────────────────── */
 .reveal {
