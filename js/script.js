@@ -281,8 +281,8 @@
     glow.className = 'cursor-glow';
     document.body.appendChild(glow);
 
-    var mx = -250, my = -250;
-    var cx = -250, cy = -250;
+    var mx = -180, my = -180;
+    var cx = -180, cy = -180;
     var raf = null;
 
     window.addEventListener('mousemove', function (e) {
@@ -294,7 +294,7 @@
     function tick() {
         cx += (mx - cx) * 0.085;
         cy += (my - cy) * 0.085;
-        glow.style.transform = 'translate(' + (cx - 250) + 'px, ' + (cy - 250) + 'px)';
+        glow.style.transform = 'translate(' + (cx - 180) + 'px, ' + (cy - 180) + 'px)';
         if (Math.abs(mx - cx) > 0.3 || Math.abs(my - cy) > 0.3) {
             raf = requestAnimationFrame(tick);
         } else {
@@ -309,12 +309,20 @@
     bar.className = 'scroll-progress';
     document.body.prepend(bar);
 
+    var ticking = false;
+
     function update() {
         var max = document.documentElement.scrollHeight - window.innerHeight;
-        if (max <= 0) return;
-        bar.style.width = ((window.scrollY / max) * 100) + '%';
+        if (max > 0) bar.style.width = ((window.scrollY / max) * 100) + '%';
+        ticking = false;
     }
 
-    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('scroll', function () {
+        if (!ticking) {
+            requestAnimationFrame(update);
+            ticking = true;
+        }
+    }, { passive: true });
+
     update();
 })();

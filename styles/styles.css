@@ -355,21 +355,21 @@ img {
 }
 
 .hero-blob-1 {
-    width: 700px;
-    height: 700px;
-    top: -100px;
-    right: -12%;
-    background: radial-gradient(circle, rgba(79, 124, 255, 0.13) 0%, transparent 68%);
-    filter: blur(90px);
+    width: 600px;
+    height: 600px;
+    top: -80px;
+    right: -10%;
+    background: radial-gradient(circle, rgba(79, 124, 255, 0.12) 0%, transparent 68%);
+    filter: blur(60px);
 }
 
 .hero-blob-2 {
-    width: 580px;
-    height: 580px;
+    width: 500px;
+    height: 500px;
     bottom: 0;
-    left: -12%;
-    background: radial-gradient(circle, rgba(125, 162, 255, 0.09) 0%, transparent 68%);
-    filter: blur(110px);
+    left: -10%;
+    background: radial-gradient(circle, rgba(125, 162, 255, 0.08) 0%, transparent 68%);
+    filter: blur(70px);
     animation-delay: -5s;
     animation-duration: 13s;
 }
@@ -379,10 +379,10 @@ img {
     top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1000px;
-    height: 420px;
-    background: radial-gradient(ellipse, rgba(79, 124, 255, 0.07) 0%, transparent 65%);
-    filter: blur(60px);
+    width: 900px;
+    height: 360px;
+    background: radial-gradient(ellipse, rgba(79, 124, 255, 0.06) 0%, transparent 65%);
+    filter: blur(50px);
     pointer-events: none;
 }
 
@@ -1254,21 +1254,21 @@ img {
 }
 
 .cta-blob-1 {
-    width: 480px;
-    height: 480px;
-    top: -160px;
-    left: -8%;
-    background: radial-gradient(circle, rgba(79, 124, 255, 0.12) 0%, transparent 68%);
-    filter: blur(90px);
+    width: 400px;
+    height: 400px;
+    top: -120px;
+    left: -6%;
+    background: radial-gradient(circle, rgba(79, 124, 255, 0.11) 0%, transparent 68%);
+    filter: blur(60px);
 }
 
 .cta-blob-2 {
-    width: 420px;
-    height: 420px;
-    bottom: -160px;
-    right: -8%;
-    background: radial-gradient(circle, rgba(125, 162, 255, 0.1) 0%, transparent 68%);
-    filter: blur(100px);
+    width: 360px;
+    height: 360px;
+    bottom: -120px;
+    right: -6%;
+    background: radial-gradient(circle, rgba(125, 162, 255, 0.09) 0%, transparent 68%);
+    filter: blur(65px);
     animation-delay: -6s;
     animation-duration: 14s;
 }
@@ -1278,10 +1278,10 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 900px;
-    height: 360px;
-    background: radial-gradient(ellipse, rgba(79, 124, 255, 0.08) 0%, transparent 65%);
-    filter: blur(70px);
+    width: 800px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(79, 124, 255, 0.07) 0%, transparent 65%);
+    filter: blur(55px);
     pointer-events: none;
 }
 
@@ -1691,15 +1691,13 @@ img {
 /* ─── Scroll reveal ──────────────────────────── */
 .reveal {
     opacity: 0;
-    transform: translateY(22px);
-    filter: blur(5px);
-    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), filter 0.9s var(--ease-out);
+    transform: translateY(20px);
+    transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
 }
 
 .reveal.visible {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
 }
 
 
@@ -2005,6 +2003,24 @@ img {
     }
 }
 
+/* ─── Mobile: deshabilitar animaciones pesadas de GPU ─────────────────── */
+@media (max-width: 768px) {
+    .hero-blob,
+    .cta-blob {
+        display: none;
+    }
+
+    .hero-glow,
+    .about-bg-glow,
+    .process-bg-glow,
+    .contact-bg-glow,
+    .cta-glow {
+        filter: blur(30px);
+        opacity: 0.5;
+        animation: none;
+    }
+}
+
 /* ─── Reduced motion ─────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -2296,14 +2312,14 @@ body.privacy-page a:hover {
     position: fixed;
     top: 0;
     left: 0;
-    width: 500px;
-    height: 500px;
+    width: 360px;
+    height: 360px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(79, 124, 255, 0.055) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(79, 124, 255, 0.05) 0%, transparent 65%);
     pointer-events: none;
     z-index: 0;
     will-change: transform;
-    transform: translate(-250px, -250px);
+    transform: translate(-180px, -180px);
 }
 
 @media (hover: none) {
