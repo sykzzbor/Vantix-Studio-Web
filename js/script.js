@@ -272,3 +272,49 @@
         }, 5000);
     });
 })();
+
+// ── Cursor glow (LERP follow) ─────────────────────────────────────────────
+(function () {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+    var glow = document.createElement('div');
+    glow.className = 'cursor-glow';
+    document.body.appendChild(glow);
+
+    var mx = -250, my = -250;
+    var cx = -250, cy = -250;
+    var raf = null;
+
+    window.addEventListener('mousemove', function (e) {
+        mx = e.clientX;
+        my = e.clientY;
+        if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+
+    function tick() {
+        cx += (mx - cx) * 0.085;
+        cy += (my - cy) * 0.085;
+        glow.style.transform = 'translate(' + (cx - 250) + 'px, ' + (cy - 250) + 'px)';
+        if (Math.abs(mx - cx) > 0.3 || Math.abs(my - cy) > 0.3) {
+            raf = requestAnimationFrame(tick);
+        } else {
+            raf = null;
+        }
+    }
+})();
+
+// ── Scroll progress bar ───────────────────────────────────────────────────
+(function () {
+    var bar = document.createElement('div');
+    bar.className = 'scroll-progress';
+    document.body.prepend(bar);
+
+    function update() {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max <= 0) return;
+        bar.style.width = ((window.scrollY / max) * 100) + '%';
+    }
+
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+})();
