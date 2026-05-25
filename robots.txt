@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /politicas/
 
-Sitemap: https://vantixdigitalweb.com.ar/sitemap.xml
+Sitemap: https://www.vantixdigitalweb.com.ar/sitemap.xml
