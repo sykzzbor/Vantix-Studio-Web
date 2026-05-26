@@ -217,7 +217,7 @@
 
 // ── Contact form → WhatsApp ───────────────────────────────────────────────
 // Al enviar, arma un mensaje con los datos del formulario y abre WhatsApp
-// con el texto prellenado hacia el número de Vantix Digital.
+// con el texto prellenado hacia el número de Vantix Desing.
 (function () {
     var form    = document.getElementById('contactForm');
     var success = document.getElementById('formSuccess');
@@ -227,7 +227,7 @@
 
     function buildMessage(nombre, email, mensaje) {
         return [
-            '¡Hola Vantix Digital! Quiero hacer una consulta.',
+            '¡Hola Vantix Desing! Quiero hacer una consulta.',
             '',
             'Nombre: ' + nombre,
             'Email: ' + email,
