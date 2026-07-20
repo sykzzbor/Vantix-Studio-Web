@@ -3,3 +3,10 @@
 
 # Local agent tooling
 .agents/
+
+# Next.js and local dependencies
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+.DS_Store

@@ -1,0 +1,91 @@
+:root {
+  --ink: #0b1018;
+  --muted: #667085;
+  --line: #dfe3ea;
+  --blue: #275df5;
+  --wash: #f5f7fa;
+}
+
+* { box-sizing: border-box; }
+html { background: white; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: white;
+  font-family: "Manrope", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+}
+a { color: inherit; }
+.privacy-nav,
+.privacy-main,
+.privacy-footer {
+  width: min(calc(100% - 32px), 920px);
+  margin-inline: auto;
+}
+.privacy-nav {
+  display: flex;
+  min-height: 74px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.privacy-nav a:first-child { display: inline-flex; }
+.privacy-nav img { width: 104px; height: auto; object-fit: contain; }
+.privacy-nav a:last-child { font-size: .8rem; font-weight: 700; text-decoration: none; }
+.privacy-main { padding-block: 72px; }
+.kicker {
+  margin: 0 0 18px;
+  color: var(--blue);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.privacy-main h1,
+.privacy-main h2 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  letter-spacing: -.04em;
+}
+.privacy-main h1 {
+  max-width: 760px;
+  margin: 0 0 14px;
+  font-size: clamp(2.7rem, 9vw, 5.6rem);
+  line-height: 1;
+}
+.privacy-date { color: var(--muted); font-size: .8rem; }
+.privacy-content {
+  max-width: 720px;
+  margin-top: 62px;
+  padding-top: 34px;
+  border-top: 1px solid var(--line);
+}
+.privacy-content h2 { margin: 44px 0 10px; font-size: 1.55rem; }
+.privacy-content p,
+.privacy-content li { color: #414b5b; }
+.privacy-content a { color: var(--blue); font-weight: 700; }
+.privacy-content ul { padding-left: 22px; }
+.privacy-note {
+  margin-top: 48px;
+  padding: 20px;
+  border-left: 3px solid var(--blue);
+  background: var(--wash);
+}
+.privacy-note p { margin: 0; }
+.privacy-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-block: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .75rem;
+}
+.privacy-footer a { color: var(--ink); font-weight: 700; text-decoration: none; }
+@media (min-width: 680px) {
+  .privacy-nav,
+  .privacy-main,
+  .privacy-footer { width: min(calc(100% - 64px), 920px); }
+  .privacy-main { padding-block: 104px; }
+  .privacy-footer { flex-direction: row; justify-content: space-between; }
+}
