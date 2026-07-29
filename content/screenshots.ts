@@ -1,0 +1,173 @@
+import type {
+  ScreenshotDefinition,
+  ScreenshotId,
+  Theme,
+} from "@/content/types";
+
+export const SCREENSHOTS = [
+  {
+    id: "conversations-overview",
+    alt: {
+      es: "Bandeja centralizada de conversaciones de VantixApp",
+      en: "VantixApp centralized conversation inbox",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/conversations-overview.jpeg",
+        width: 1280,
+        height: 647,
+      },
+      dark: {
+        src: "/screenshots/dark/conversations-overview.jpeg",
+        width: 1280,
+        height: 647,
+      },
+    },
+  },
+  {
+    id: "conversations-human",
+    alt: {
+      es: "Conversación atendida por una persona dentro de VantixApp",
+      en: "Conversation handled by a person in VantixApp",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/conversations-human.jpeg",
+        width: 1280,
+        height: 645,
+      },
+      dark: {
+        src: "/screenshots/dark/conversations-human.jpeg",
+        width: 1280,
+        height: 645,
+      },
+    },
+  },
+  {
+    id: "conversations-ai",
+    alt: {
+      es: "Conversación atendida por el agente de IA de VantixApp",
+      en: "Conversation handled by the VantixApp AI agent",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/conversations-ai.jpeg",
+        width: 1280,
+        height: 647,
+      },
+      dark: {
+        src: "/screenshots/dark/conversations-ai.jpeg",
+        width: 1280,
+        height: 647,
+      },
+    },
+  },
+  {
+    id: "agent-playground",
+    alt: {
+      es: "Chat de prueba del agente de VantixApp",
+      en: "VantixApp agent testing chat",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/agent-playground.jpeg",
+        width: 1280,
+        height: 475,
+      },
+      dark: {
+        src: "/screenshots/dark/agent-playground.jpeg",
+        width: 1280,
+        height: 473,
+      },
+    },
+  },
+  {
+    id: "metrics-summary",
+    alt: {
+      es: "Resumen de métricas de atención de VantixApp",
+      en: "VantixApp customer service metrics summary",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/metrics-summary.jpeg",
+        width: 1280,
+        height: 410,
+      },
+      dark: {
+        src: "/screenshots/dark/metrics-summary.jpeg",
+        width: 1280,
+        height: 408,
+      },
+    },
+  },
+  {
+    id: "metrics-conversations-day",
+    alt: {
+      es: "Gráfico de conversaciones por día en VantixApp",
+      en: "VantixApp conversations per day chart",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/metrics-conversations-day.jpeg",
+        width: 644,
+        height: 303,
+      },
+      dark: {
+        src: "/screenshots/dark/metrics-conversations-day.jpeg",
+        width: 712,
+        height: 330,
+      },
+    },
+  },
+  {
+    id: "metrics-hourly",
+    alt: {
+      es: "Gráfico de actividad por horario en VantixApp",
+      en: "VantixApp activity by hour chart",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/metrics-hourly.jpeg",
+        width: 649,
+        height: 304,
+      },
+      dark: {
+        src: "/screenshots/dark/metrics-hourly.jpeg",
+        width: 713,
+        height: 328,
+      },
+    },
+  },
+  {
+    id: "metrics-ai-human",
+    alt: {
+      es: "Comparación de atención con IA y humana en VantixApp",
+      en: "VantixApp AI and human service comparison",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/metrics-ai-human.jpeg",
+        width: 640,
+        height: 246,
+      },
+      dark: {
+        src: "/screenshots/dark/metrics-ai-human.jpeg",
+        width: 710,
+        height: 272,
+      },
+    },
+  },
+] as const satisfies readonly ScreenshotDefinition[];
+
+export const SCREENSHOTS_BY_ID = Object.fromEntries(
+  SCREENSHOTS.map((screenshot) => [screenshot.id, screenshot]),
+) as Readonly<Record<ScreenshotId, (typeof SCREENSHOTS)[number]>>;
+
+export const HERO_SCREENSHOT_IDS = [
+  "conversations-overview",
+  "conversations-human",
+] as const satisfies readonly ScreenshotId[];
+
+export function getScreenshotAsset(id: ScreenshotId, theme: Theme) {
+  return SCREENSHOTS_BY_ID[id].assets[theme];
+}

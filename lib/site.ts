@@ -1,7 +1,7 @@
 export const SITE_URL = "https://www.vantixdigitalweb.com.ar";
 
-export const APP_URL = "https://proyecto-vantix-app.vercel.app";
-export const APP_LOGIN_URL = `${APP_URL}/login`;
+export const APP_URL = "https://www.vantixapp.com.ar";
+export const APP_LOGIN_URL = APP_URL;
 export const APP_REGISTER_URL = `${APP_URL}/registro`;
 
 export const WHATSAPP_NUMBER = "543525617652";

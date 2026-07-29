@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
+import { headers } from "next/headers";
+import { Manrope, Space_Grotesk } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const bodyFont = Manrope({
@@ -8,7 +10,7 @@ const bodyFont = Manrope({
   display: "swap",
 });
 
-const displayFont = Plus_Jakarta_Sans({
+const displayFont = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -18,41 +20,17 @@ const siteUrl = "https://www.vantixdigitalweb.com.ar";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "VantixApp | Atención con IA y CRM para WhatsApp",
+  title: {
+    default: "VantixApp | Atención con IA para WhatsApp",
+    template: "%s | Vantix",
+  },
   description:
-    "VantixApp responde consultas con IA, organiza clientes con CRM y gestiona turnos desde WhatsApp. Probalo gratis por 5 días, sin tarjeta de crédito.",
-  alternates: { canonical: "/" },
+    "Centralizá conversaciones, automatizá respuestas con IA y mantené a tu equipo en control desde VantixApp.",
   applicationName: "VantixApp",
   authors: [{ name: "Vantix" }],
   icons: {
-    icon: [
-      { url: "/images/vantix-mark-256w.webp", type: "image/webp" },
-    ],
-    apple: "/images/vantix-mark-512w.webp",
-  },
-  openGraph: {
-    type: "website",
-    locale: "es_AR",
-    url: "/",
-    siteName: "VantixApp",
-    title: "VantixApp | Atención con IA y CRM para WhatsApp",
-    description:
-      "Convertí las consultas de WhatsApp en clientes, incluso cuando no estás conectado. Prueba gratuita de 5 días.",
-    images: [
-      {
-        url: "/images/vantix-hero-1920w.webp",
-        width: 1920,
-        height: 1080,
-        alt: "VantixApp, plataforma de atención con IA para WhatsApp",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "VantixApp | Atención con IA y CRM para WhatsApp",
-    description:
-      "Atención automática y humana, CRM y turnos en una sola bandeja. Prueba gratuita de 5 días.",
-    images: ["/images/vantix-hero-1920w.webp"],
+    icon: [{ url: "/brand/favicon.png", type: "image/png" }],
+    apple: "/brand/favicon.png",
   },
   robots: {
     index: true,
@@ -70,12 +48,28 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0f1115",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f7f8fb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1115" },
+  ],
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
+  const requestHeaders = await headers();
+  const locale = requestHeaders.get("x-vantix-locale") === "en" ? "en" : "es-AR";
+
   return (
-    <html lang="es-AR" className={`${bodyFont.variable} ${displayFont.variable}`}>
+    <html
+      lang={locale}
+      className={`${bodyFont.variable} ${displayFont.variable}`}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <head>
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
+      </head>
       <body>{children}</body>
     </html>
   );

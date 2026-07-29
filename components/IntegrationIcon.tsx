@@ -1,8 +1,7 @@
 import {
-  siAnthropic,
   siGooglecalendar,
   siGooglesheets,
-  siInstagram,
+  siMercadopago,
   siN8n,
   siWhatsapp,
   siWoocommerce,
@@ -10,16 +9,20 @@ import {
 } from "simple-icons";
 
 const brandIcons = {
-  anthropic: siAnthropic,
   googleCalendar: siGooglecalendar,
   googleSheets: siGooglesheets,
-  instagram: siInstagram,
+  mercadoPago: siMercadopago,
   n8n: siN8n,
   whatsapp: siWhatsapp,
   woocommerce: siWoocommerce,
 } satisfies Record<string, SimpleIcon>;
 
-export type IntegrationIconName = keyof typeof brandIcons | "documents" | "store";
+export type IntegrationIconName =
+  | keyof typeof brandIcons
+  | "audio"
+  | "documents"
+  | "images"
+  | "tiendanube";
 
 export function IntegrationIcon({ name }: { name: IntegrationIconName }) {
   const icon = name in brandIcons ? brandIcons[name as keyof typeof brandIcons] : null;
@@ -29,6 +32,14 @@ export function IntegrationIcon({ name }: { name: IntegrationIconName }) {
       <svg className="integration-icon" viewBox="0 0 24 24" aria-hidden="true">
         <path d={icon.path} />
       </svg>
+    );
+  }
+
+  if (name === "tiendanube") {
+    return (
+      // El archivo proviene del repositorio oficial del design system de Tiendanube.
+      // eslint-disable-next-line @next/next/no-img-element
+      <img className="integration-icon integration-logo" src="/integrations/tiendanube.svg" alt="" />
     );
   }
 
@@ -43,9 +54,15 @@ export function IntegrationIcon({ name }: { name: IntegrationIconName }) {
           strokeLinejoin="round"
           strokeWidth="1.6"
         />
+      ) : name === "images" ? (
+        <>
+          <rect x="3.25" y="4.25" width="17.5" height="15.5" rx="2.25" fill="none" stroke="currentColor" strokeWidth="1.6" />
+          <circle cx="8.4" cy="9" r="1.45" fill="none" stroke="currentColor" strokeWidth="1.5" />
+          <path d="m5.5 17 4.2-4.1 2.65 2.55 2.1-2.05 4.05 3.6" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6" />
+        </>
       ) : (
         <path
-          d="M4 9.25h16l-1.1-5.5H5.1L4 9.25Zm1.25 0v11h13.5v-11M8.25 20.25v-6h4.5v6"
+          d="M5.25 9.5v5M8.5 6.75v10.5M11.75 4.5v15M15 7.5v9M18.25 10v4"
           fill="none"
           stroke="currentColor"
           strokeLinecap="round"
