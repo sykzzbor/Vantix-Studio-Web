@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { ArrowIcon, CheckIcon } from "@/components/ArrowIcon";
+import { ArrowIcon } from "@/components/ArrowIcon";
 import { ContactForm } from "@/components/ContactForm";
 import { Faq } from "@/components/Faq";
 import {
@@ -18,14 +18,12 @@ import { SiteHeader } from "@/components/SiteHeader";
 import {
   FAQS,
   FEATURES,
-  FEATURE_BENTO,
   INTEGRATIONS,
   LANDING_COPY,
   LANDING_SCREENSHOT_PLACEMENTS,
   PLANS,
   SCREENSHOTS_BY_ID,
   getTranslations,
-  type FeatureId,
   type IntegrationId,
   type Locale,
   type ScreenshotId,
@@ -50,12 +48,6 @@ function screenshotSource(id: ScreenshotId) {
     width: screenshot.assets.light.width,
     height: screenshot.assets.light.height,
   };
-}
-
-function getFeature(id: FeatureId) {
-  const feature = FEATURES.find((item) => item.id === id);
-  if (!feature) throw new Error(`Missing feature configuration: ${id}`);
-  return feature;
 }
 
 function integrationIconName(id: IntegrationId): IntegrationIconName {
@@ -142,195 +134,6 @@ function ProductSchema({ locale }: { locale: Locale }) {
   );
 }
 
-function TrustStrip({ locale }: { locale: Locale }) {
-  return (
-    <aside className="vx-trust-strip" aria-label={locale === "es" ? "Confianza" : "Trust"}>
-      <div className="section-shell">
-        {LANDING_COPY.trust.map((item) => (
-          <span key={item.en}>
-            <CheckIcon />
-            {item[locale]}
-          </span>
-        ))}
-      </div>
-    </aside>
-  );
-}
-
-function ProductShowcase({ locale }: { locale: Locale }) {
-  const copy = LANDING_COPY.product;
-  const screenshotId = LANDING_SCREENSHOT_PLACEMENTS.product;
-  const screenshot = SCREENSHOTS_BY_ID[screenshotId];
-
-  return (
-    <section className="section vx-product" id="producto">
-      <div className="section-shell">
-        <header className="section-heading vx-centered-heading" data-reveal>
-          <span className="eyebrow">{copy.eyebrow[locale]}</span>
-          <h2>{copy.title[locale]}</h2>
-          <p>{copy.description[locale]}</p>
-        </header>
-
-        <div className="vx-product-frame" data-reveal>
-          <div className="product-frame-bar" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-            <strong>VantixApp</strong>
-          </div>
-          <ProductScreenshot
-            source={screenshotSource(screenshotId)}
-            alt={screenshot.alt[locale]}
-          />
-        </div>
-
-        <div className="vx-benefits" data-reveal>
-          {copy.benefits.map((benefit) => (
-            <article key={benefit.title.en}>
-              <CheckIcon />
-              <h3>{benefit.title[locale]}</h3>
-              <p>{benefit.description[locale]}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FeatureVisual({
-  id,
-  locale,
-}: {
-  id: (typeof FEATURE_BENTO)[number]["id"];
-  locale: Locale;
-}) {
-  if (id === "agent") {
-    const screenshotId = LANDING_SCREENSHOT_PLACEMENTS.agent;
-    const screenshot = SCREENSHOTS_BY_ID[screenshotId];
-    return (
-      <figure className="vx-agent-shot">
-        <ProductScreenshot
-          source={screenshotSource(screenshotId)}
-          alt={screenshot.alt[locale]}
-        />
-        <figcaption>{LANDING_COPY.features.agentCaption[locale]}</figcaption>
-      </figure>
-    );
-  }
-
-  if (id === "inbox") {
-    return (
-      <div className="vx-capability-cluster" aria-hidden="true">
-        <span>{locale === "es" ? "Conversaciones" : "Conversations"}</span>
-        <span>{locale === "es" ? "Clientes" : "Customers"}</span>
-        <span>{locale === "es" ? "Etiquetas" : "Labels"}</span>
-        <span>{locale === "es" ? "Notas internas" : "Internal notes"}</span>
-      </div>
-    );
-  }
-
-  if (id === "team") {
-    return (
-      <div className="vx-role-list" aria-hidden="true">
-        {["Owner", "Admin", "Agent", "Viewer"].map((role) => (
-          <span key={role}>{role}</span>
-        ))}
-      </div>
-    );
-  }
-
-  if (id === "knowledge") {
-    return (
-      <div className="vx-knowledge-list" aria-hidden="true">
-        <span>PDF</span>
-        <span>{locale === "es" ? "Productos" : "Products"}</span>
-        <span>FAQs</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="vx-flow" aria-hidden="true">
-      <span>WhatsApp</span>
-      <i>→</i>
-      <span>n8n</span>
-      <i>→</i>
-      <span>{locale === "es" ? "Acción" : "Action"}</span>
-    </div>
-  );
-}
-
-function FeatureBento({ locale }: { locale: Locale }) {
-  const copy = LANDING_COPY.features;
-
-  return (
-    <section className="section vx-features" id="funciones">
-      <div className="section-shell">
-        <header className="section-heading vx-centered-heading" data-reveal>
-          <span className="eyebrow">{copy.eyebrow[locale]}</span>
-          <h2>{copy.title[locale]}</h2>
-          <p>{copy.description[locale]}</p>
-        </header>
-
-        <div className="vx-bento">
-          {FEATURE_BENTO.map((item) => {
-            const primary = getFeature(item.featureIds[0]);
-            const companions = item.featureIds
-              .slice(1)
-              .map((id) => getFeature(id));
-
-            return (
-              <article
-                className={`vx-bento-card vx-bento-${item.id} vx-bento-${item.size}`}
-                key={item.id}
-                data-reveal
-              >
-                <span className="vx-icon-disc">
-                  <LandingIcon name={item.icon} />
-                </span>
-                <p className="vx-bento-kicker">{primary.eyebrow[locale]}</p>
-                <h3>{primary.title[locale]}</h3>
-                <p className="vx-bento-description">
-                  {primary.description[locale]}
-                </p>
-                {companions.length ? (
-                  <div className="vx-companion-list">
-                    {companions.map((feature) => (
-                      <span key={feature.id}>{feature.eyebrow[locale]}</span>
-                    ))}
-                  </div>
-                ) : null}
-                <FeatureVisual id={item.id} locale={locale} />
-              </article>
-            );
-          })}
-
-          <article className="vx-bento-card vx-bento-security" data-reveal>
-            <span className="vx-icon-disc">
-              <LandingIcon name="security" />
-            </span>
-            <div>
-              <h3>{copy.security.title[locale]}</h3>
-              <p className="vx-bento-description">
-                {copy.security.description[locale]}
-              </p>
-            </div>
-            <ul>
-              {copy.security.items.map((item) => (
-                <li key={item.en}>
-                  <CheckIcon />
-                  {item[locale]}
-                </li>
-              ))}
-            </ul>
-          </article>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function MetricsWall({ locale }: { locale: Locale }) {
   const copy = LANDING_COPY.metrics;
   const placements = [
@@ -367,6 +170,18 @@ function MetricsWall({ locale }: { locale: Locale }) {
           <h2>{copy.title[locale]}</h2>
           <p>{copy.description[locale]}</p>
         </header>
+
+        <div className="vx-metric-capabilities" data-reveal>
+          {copy.capabilities.map((capability) => (
+            <article key={capability.title.en}>
+              <span>
+                <LandingIcon name={capability.icon} />
+              </span>
+              <h3>{capability.title[locale]}</h3>
+              <p>{capability.description[locale]}</p>
+            </article>
+          ))}
+        </div>
 
         <div className="vx-metrics-wall" data-reveal>
           {placements.map(({ key, id, label }) => (
@@ -422,7 +237,6 @@ function HowItWorks({ locale }: { locale: Locale }) {
 
 function Integrations({ locale }: { locale: Locale }) {
   const copy = LANDING_COPY.integrations;
-  const repeated = [...INTEGRATIONS, ...INTEGRATIONS];
 
   return (
     <section className="section vx-integrations" id="integraciones">
@@ -432,21 +246,14 @@ function Integrations({ locale }: { locale: Locale }) {
           <h2>{copy.title[locale]}</h2>
           <p>{copy.description[locale]}</p>
         </header>
-      </div>
 
-      <div
-        className="vx-integration-band"
-        role="region"
-        aria-label={copy.title[locale]}
-        data-reveal
-      >
-        <div className="vx-integration-track">
-          {repeated.map((integration, index) => (
+        <div className="vx-integrations-grid" role="list" data-reveal>
+          {INTEGRATIONS.map((integration) => (
             <article
               className="vx-integration-item"
               data-integration={integration.id}
-              key={`${integration.id}-${index}`}
-              aria-hidden={index >= INTEGRATIONS.length}
+              key={integration.id}
+              role="listitem"
             >
               <span>
                 <IntegrationIcon
@@ -455,14 +262,14 @@ function Integrations({ locale }: { locale: Locale }) {
               </span>
               <div>
                 <h3>{integration.name[locale]}</h3>
-                <p>{integration.description[locale]}</p>
+                <p>{integration.shortDescription[locale]}</p>
               </div>
             </article>
           ))}
         </div>
-      </div>
 
-      <p className="vx-integration-note">{copy.clarification[locale]}</p>
+        <p className="vx-integration-note">{copy.clarification[locale]}</p>
+      </div>
     </section>
   );
 }
@@ -554,7 +361,6 @@ export function LandingPage({ locale }: { locale: Locale }) {
                   {t.hero.secondaryCta}
                 </a>
               </div>
-              <small>{t.hero.trust}</small>
             </div>
 
             <div className="vx-hero-panel">
@@ -573,9 +379,6 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <TrustStrip locale={locale} />
-        <ProductShowcase locale={locale} />
-        <FeatureBento locale={locale} />
         <MetricsWall locale={locale} />
         <HowItWorks locale={locale} />
         <Integrations locale={locale} />

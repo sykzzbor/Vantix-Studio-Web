@@ -30,8 +30,6 @@ function sha256(src: string) {
 test("la landing asigna una captura conceptual distinta a cada ubicación", () => {
   assert.deepEqual(LANDING_SCREENSHOT_PLACEMENTS, {
     hero: "conversations-overview",
-    product: "conversations-human",
-    agent: "agent-playground",
     metricsSummary: "metrics-summary",
     metricsDay: "metrics-conversations-day",
     metricsHourly: "metrics-hourly",

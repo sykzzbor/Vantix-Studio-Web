@@ -11,9 +11,7 @@ export type NavigationItem = {
     | "features"
     | "integrations"
     | "howItWorks"
-    | "pricing"
-    | "faq"
-    | "contact";
+    | "pricing";
   href: string;
   label: LocalizedText;
 };
@@ -50,8 +48,6 @@ export type ScreenshotDefinition = {
 
 export type LandingScreenshotPlacement =
   | "hero"
-  | "product"
-  | "agent"
   | "metricsSummary"
   | "metricsDay"
   | "metricsHourly"
@@ -108,6 +104,7 @@ export type IntegrationDefinition = {
   id: IntegrationId;
   name: LocalizedText;
   description: LocalizedText;
+  shortDescription: LocalizedText;
   status: AvailabilityStatus;
   category: IntegrationCategory;
   logoSrc?: string;

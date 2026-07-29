@@ -11,6 +11,10 @@ export const INTEGRATIONS = [
       es: "Canal oficial para recibir y responder conversaciones desde la bandeja de VantixApp.",
       en: "Official channel for receiving and replying to conversations from the VantixApp inbox.",
     },
+    shortDescription: {
+      es: "Conversaciones oficiales en WhatsApp",
+      en: "Official WhatsApp conversations",
+    },
     status: "available",
     category: "channel",
     logoAlt: {
@@ -25,6 +29,10 @@ export const INTEGRATIONS = [
       es: "Sincronización de solo lectura de productos, variantes, clientes y pedidos para consultarlos en VantixApp.",
       en: "Read-only sync of products, variants, customers and orders for review inside VantixApp.",
     },
+    shortDescription: {
+      es: "Catálogo y pedidos sincronizados",
+      en: "Synced catalog and orders",
+    },
     status: "available",
     category: "commerce",
     logoSrc: "/integrations/tiendanube.svg",
@@ -37,6 +45,10 @@ export const INTEGRATIONS = [
       es: "Exportación manual y unidireccional de clientes, conversaciones y métricas a una planilla.",
       en: "Manual, one-way export of customers, conversations and analytics to a spreadsheet.",
     },
+    shortDescription: {
+      es: "Clientes y métricas exportables",
+      en: "Export customers and analytics",
+    },
     status: "available",
     category: "data",
     logoAlt: { es: "Logo de Google Sheets", en: "Google Sheets logo" },
@@ -47,6 +59,10 @@ export const INTEGRATIONS = [
     description: {
       es: "Disponibilidad real para crear, reprogramar y cancelar turnos desde una conversación.",
       en: "Live availability to create, reschedule and cancel appointments from a conversation.",
+    },
+    shortDescription: {
+      es: "Turnos con disponibilidad real",
+      en: "Appointments with live availability",
     },
     status: "available",
     category: "calendar",
@@ -62,6 +78,10 @@ export const INTEGRATIONS = [
       es: "Sincronización de solo lectura de productos y datos operativos para consultarlos en VantixApp.",
       en: "Read-only sync of products and operational data for review inside VantixApp.",
     },
+    shortDescription: {
+      es: "Productos y datos sincronizados",
+      en: "Synced products and operations",
+    },
     status: "available",
     category: "commerce",
     logoAlt: { es: "Logo de WooCommerce", en: "WooCommerce logo" },
@@ -72,6 +92,10 @@ export const INTEGRATIONS = [
     description: {
       es: "Disponible únicamente para la facturación y el pago de planes de VantixApp.",
       en: "Available only for VantixApp plan billing and payments.",
+    },
+    shortDescription: {
+      es: "Pago de planes VantixApp",
+      en: "VantixApp plan payments",
     },
     status: "available",
     category: "billing",
@@ -87,6 +111,10 @@ export const INTEGRATIONS = [
     description: {
       es: "Los PDF se incorporan a la base de conocimiento para que el agente consulte su contenido.",
       en: "PDF files become part of the knowledge base so the agent can use their content.",
+    },
+    shortDescription: {
+      es: "Conocimiento desde documentos PDF",
+      en: "Knowledge from PDF documents",
     },
     status: "available",
     category: "knowledge",
@@ -106,6 +134,10 @@ export const INTEGRATIONS = [
       es: "Comprensión de imágenes recibidas durante una conversación.",
       en: "Understanding images received during a conversation.",
     },
+    shortDescription: {
+      es: "Comprende imágenes recibidas",
+      en: "Understands received images",
+    },
     status: "available",
     category: "knowledge",
     icon: "image",
@@ -121,6 +153,10 @@ export const INTEGRATIONS = [
       es: "Interpretación de mensajes de voz para incorporarlos al contexto del chat.",
       en: "Voice-message understanding to add their content to the chat context.",
     },
+    shortDescription: {
+      es: "Interpreta mensajes de voz",
+      en: "Understands voice messages",
+    },
     status: "available",
     category: "knowledge",
     icon: "audio",
@@ -135,6 +171,10 @@ export const INTEGRATIONS = [
     description: {
       es: "Flujos para seguimientos y acciones conectadas con la operación.",
       en: "Workflows for follow-ups and actions connected to your operation.",
+    },
+    shortDescription: {
+      es: "Automatizaciones y seguimientos conectados",
+      en: "Connected automations and follow-ups",
     },
     status: "available",
     category: "automation",

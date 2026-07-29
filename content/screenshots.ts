@@ -173,8 +173,6 @@ export const SCREENSHOTS_BY_ID = Object.fromEntries(
  */
 export const LANDING_SCREENSHOT_PLACEMENTS = {
   hero: "conversations-overview",
-  product: "conversations-human",
-  agent: "agent-playground",
   metricsSummary: "metrics-summary",
   metricsDay: "metrics-conversations-day",
   metricsHourly: "metrics-hourly",

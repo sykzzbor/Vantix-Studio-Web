@@ -1,12 +1,7 @@
 (function () {
   try {
     var stored = window.localStorage.getItem("vantix-theme");
-    var theme =
-      stored === "light" || stored === "dark"
-        ? stored
-        : window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? "dark"
-          : "light";
+    var theme = stored === "light" || stored === "dark" ? stored : "light";
 
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;

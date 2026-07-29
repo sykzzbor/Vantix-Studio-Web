@@ -36,8 +36,6 @@ export const TRANSLATIONS = {
         "VantixApp responde con la información de tu negocio, organiza cada contacto y permite que tu equipo tome el control cuando sea necesario.",
       primaryCta: "Probar gratis",
       secondaryCta: "Agendar una demo",
-      trust:
-        "5 días de prueba · sin tarjeta · implementación acompañada",
     },
     carousel: {
       label: "Capturas reales de VantixApp",
@@ -204,8 +202,6 @@ export const TRANSLATIONS = {
         "VantixApp replies with your business information, organizes every contact and lets your team take control whenever needed.",
       primaryCta: "Start free",
       secondaryCta: "Book a demo",
-      trust:
-        "5-day trial · no card required · guided implementation",
     },
     carousel: {
       label: "Real VantixApp screenshots",

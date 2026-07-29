@@ -6,12 +6,12 @@ import type {
 export const NAVIGATION = [
   {
     id: "product",
-    href: "#producto",
+    href: "#inicio",
     label: { es: "Producto", en: "Product" },
   },
   {
     id: "features",
-    href: "#funciones",
+    href: "#metricas",
     label: { es: "Funciones", en: "Features" },
   },
   {
@@ -28,16 +28,6 @@ export const NAVIGATION = [
     id: "pricing",
     href: "#precios",
     label: { es: "Precios", en: "Pricing" },
-  },
-  {
-    id: "faq",
-    href: "#preguntas",
-    label: { es: "Preguntas", en: "FAQ" },
-  },
-  {
-    id: "contact",
-    href: "#contacto",
-    label: { es: "Contacto", en: "Contact" },
   },
 ] as const satisfies readonly NavigationItem[];
 

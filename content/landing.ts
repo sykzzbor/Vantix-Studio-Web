@@ -1,99 +1,6 @@
-import type { FeatureId, LocalizedText } from "@/content/types";
+import type { LocalizedText } from "@/content/types";
 
 export const LANDING_COPY = {
-  trust: [
-    { es: "Prueba de 5 días", en: "5-day trial" },
-    { es: "Credenciales cifradas", en: "Encrypted credentials" },
-    {
-      es: "Equipos, roles y permisos",
-      en: "Teams, roles and permissions",
-    },
-    {
-      es: "IA y control humano",
-      en: "AI and human control",
-    },
-    {
-      es: "Implementación acompañada",
-      en: "Guided implementation",
-    },
-  ],
-  product: {
-    eyebrow: { es: "Todo en un solo lugar", en: "Everything in one place" },
-    title: {
-      es: "Una bandeja para atender, organizar y avanzar.",
-      en: "One inbox to serve, organize and move forward.",
-    },
-    description: {
-      es: "Cada conversación reúne el mensaje, los datos del contacto, el responsable y el historial. La IA atiende y tu equipo interviene sin perder contexto.",
-      en: "Every conversation brings together the message, contact details, owner and history. AI handles service and your team steps in without losing context.",
-    },
-    benefits: [
-      {
-        title: { es: "Atención centralizada", en: "Centralized service" },
-        description: {
-          es: "Todos los chats en una bandeja compartida.",
-          en: "Every chat in one shared inbox.",
-        },
-      },
-      {
-        title: {
-          es: "Conocimiento real",
-          en: "Real business knowledge",
-        },
-        description: {
-          es: "Respuestas basadas en tu información.",
-          en: "Replies grounded in your information.",
-        },
-      },
-      {
-        title: { es: "Control humano", en: "Human control" },
-        description: {
-          es: "Tu equipo toma la conversación cuando hace falta.",
-          en: "Your team takes over whenever needed.",
-        },
-      },
-      {
-        title: { es: "Seguimiento completo", en: "Complete follow-up" },
-        description: {
-          es: "Estado, responsable, notas e historial a la vista.",
-          en: "Status, owner, notes and history in view.",
-        },
-      },
-    ],
-  },
-  features: {
-    eyebrow: { es: "Funciones conectadas", en: "Connected features" },
-    title: {
-      es: "Menos herramientas sueltas. Más contexto para trabajar.",
-      en: "Fewer disconnected tools. More context for getting work done.",
-    },
-    description: {
-      es: "VantixApp combina atención, clientes, conocimiento y equipo dentro del mismo flujo.",
-      en: "VantixApp combines service, customers, knowledge and teamwork in one workflow.",
-    },
-    security: {
-      title: { es: "Seguridad y permisos", en: "Security and permissions" },
-      description: {
-        es: "Cada negocio mantiene su información separada y cada integrante accede según su rol.",
-        en: "Each business keeps its information separate and every teammate gets role-based access.",
-      },
-      items: [
-        { es: "Credenciales cifradas", en: "Encrypted credentials" },
-        {
-          es: "Roles Owner, Admin, Agent y Viewer",
-          en: "Owner, Admin, Agent and Viewer roles",
-        },
-        {
-          es: "Acceso separado por negocio",
-          en: "Access separated by business",
-        },
-      ],
-    },
-    agentCaption: {
-      es: "Probá y ajustá las respuestas antes de activar el agente.",
-      en: "Test and refine replies before activating the agent.",
-    },
-  },
   metrics: {
     eyebrow: { es: "Métricas", en: "Analytics" },
     title: {
@@ -104,6 +11,43 @@ export const LANDING_COPY = {
       es: "Volumen, actividad, tiempos de respuesta y participación de la IA reunidos en un solo panel.",
       en: "Volume, activity, response times and AI participation brought together in one dashboard.",
     },
+    capabilities: [
+      {
+        icon: "inbox",
+        title: { es: "Bandeja y CRM", en: "Inbox and CRM" },
+        description: {
+          es: "Conversaciones, clientes, etiquetas y notas con contexto.",
+          en: "Conversations, customers, labels and notes in context.",
+        },
+      },
+      {
+        icon: "agent",
+        title: { es: "IA y control humano", en: "AI and human control" },
+        description: {
+          es: "La IA atiende y el equipo interviene.",
+          en: "AI handles service and people step in.",
+        },
+      },
+      {
+        icon: "team",
+        title: { es: "Equipo y seguimiento", en: "Team and follow-up" },
+        description: {
+          es: "Responsables, roles, permisos e historial.",
+          en: "Owners, roles, permissions and history.",
+        },
+      },
+      {
+        icon: "automation",
+        title: {
+          es: "Conocimiento y automatizaciones",
+          en: "Knowledge and automations",
+        },
+        description: {
+          es: "Información real y acciones conectadas.",
+          en: "Real information and connected actions.",
+        },
+      },
+    ],
   },
   steps: {
     eyebrow: { es: "Puesta en marcha", en: "Getting started" },
@@ -171,31 +115,15 @@ export const LANDING_COPY = {
     },
   },
 } as const satisfies {
-  trust: readonly LocalizedText[];
-  product: {
-    eyebrow: LocalizedText;
-    title: LocalizedText;
-    description: LocalizedText;
-    benefits: readonly {
-      title: LocalizedText;
-      description: LocalizedText;
-    }[];
-  };
-  features: {
-    eyebrow: LocalizedText;
-    title: LocalizedText;
-    description: LocalizedText;
-    security: {
-      title: LocalizedText;
-      description: LocalizedText;
-      items: readonly LocalizedText[];
-    };
-    agentCaption: LocalizedText;
-  };
   metrics: {
     eyebrow: LocalizedText;
     title: LocalizedText;
     description: LocalizedText;
+    capabilities: readonly {
+      icon: "inbox" | "agent" | "team" | "automation";
+      title: LocalizedText;
+      description: LocalizedText;
+    }[];
   };
   steps: {
     eyebrow: LocalizedText;
@@ -217,41 +145,3 @@ export const LANDING_COPY = {
     note: LocalizedText;
   };
 };
-
-export const FEATURE_BENTO = [
-  {
-    id: "inbox",
-    icon: "inbox",
-    featureIds: ["inbox", "crm", "notes-and-labels"],
-    size: "wide",
-  },
-  {
-    id: "agent",
-    icon: "agent",
-    featureIds: ["ai-agent", "ai-human-mode"],
-    size: "hero",
-  },
-  {
-    id: "team",
-    icon: "team",
-    featureIds: ["team", "history"],
-    size: "standard",
-  },
-  {
-    id: "knowledge",
-    icon: "knowledge",
-    featureIds: ["knowledge"],
-    size: "standard",
-  },
-  {
-    id: "automations",
-    icon: "automation",
-    featureIds: ["automations"],
-    size: "standard",
-  },
-] as const satisfies readonly {
-  id: string;
-  icon: "inbox" | "agent" | "team" | "knowledge" | "automation";
-  featureIds: readonly FeatureId[];
-  size: "wide" | "hero" | "standard";
-}[];
