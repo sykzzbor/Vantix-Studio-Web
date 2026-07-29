@@ -30,8 +30,8 @@ export const TRANSLATIONS = {
     },
     hero: {
       eyebrow: "Atención y ventas con IA",
-      titleLead: "Convertí tus conversaciones en ",
-      titleHighlight: "clientes atendidos, organizados y listos para avanzar.",
+      titleLead: "Respondé a tiempo. Ordená cada conversación. ",
+      titleHighlight: "Vendé mejor.",
       description:
         "VantixApp responde con la información de tu negocio, organiza cada contacto y permite que tu equipo tome el control cuando sea necesario.",
       primaryCta: "Probar gratis",
@@ -196,8 +196,8 @@ export const TRANSLATIONS = {
     },
     hero: {
       eyebrow: "AI-powered customer service and sales",
-      titleLead: "Turn your conversations into ",
-      titleHighlight: "customers who are served, organized and ready to move forward.",
+      titleLead: "Reply on time. Organize every conversation. ",
+      titleHighlight: "Sell better.",
       description:
         "VantixApp replies with your business information, organizes every contact and lets your team take control whenever needed.",
       primaryCta: "Start free",

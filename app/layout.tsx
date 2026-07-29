@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import { Manrope, Space_Grotesk } from "next/font/google";
+import { Lora, Nunito } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 
-const bodyFont = Manrope({
+const bodyFont = Nunito({
   subsets: ["latin"],
   variable: "--font-body",
   display: "swap",
 });
 
-const displayFont = Space_Grotesk({
+const displayFont = Lora({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",

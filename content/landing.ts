@@ -2,49 +2,77 @@ import type { LocalizedText } from "@/content/types";
 
 export const LANDING_COPY = {
   metrics: {
-    eyebrow: { es: "Métricas", en: "Analytics" },
+    eyebrow: { es: "Producto en acción", en: "Product in action" },
     title: {
-      es: "La atención, vista como una operación completa.",
-      en: "Customer service, viewed as one complete operation.",
+      es: "Todo el negocio, en una vista más clara.",
+      en: "Your whole business, in one clearer view.",
     },
     description: {
-      es: "Volumen, actividad, tiempos de respuesta y participación de la IA reunidos en un solo panel.",
-      en: "Volume, activity, response times and AI participation brought together in one dashboard.",
+      es: "Conversaciones, conocimiento, servicios y actividad reunidos para que tu equipo entienda qué pasa y qué hacer después.",
+      en: "Conversations, knowledge, services and activity together so your team understands what is happening and what to do next.",
     },
-    capabilities: [
+    cards: [
       {
-        icon: "inbox",
-        title: { es: "Bandeja y CRM", en: "Inbox and CRM" },
+        key: "summary",
+        emoji: "📊",
+        title: { es: "La operación, de un vistazo", en: "The operation at a glance" },
         description: {
-          es: "Conversaciones, clientes, etiquetas y notas con contexto.",
-          en: "Conversations, customers, labels and notes in context.",
+          es: "Conversaciones, tiempos, derivaciones y actividad.",
+          en: "Conversations, response times, handoffs and activity.",
         },
       },
       {
-        icon: "agent",
-        title: { es: "IA y control humano", en: "AI and human control" },
+        key: "aiHuman",
+        emoji: "🤝",
+        title: { es: "IA y atención humana", en: "AI and human service" },
         description: {
-          es: "La IA atiende y el equipo interviene.",
-          en: "AI handles service and people step in.",
+          es: "Entendé cómo se reparte la atención.",
+          en: "Understand how customer service is shared.",
         },
       },
       {
-        icon: "team",
-        title: { es: "Equipo y seguimiento", en: "Team and follow-up" },
-        description: {
-          es: "Responsables, roles, permisos e historial.",
-          en: "Owners, roles, permissions and history.",
-        },
-      },
-      {
-        icon: "automation",
+        key: "knowledge",
+        emoji: "🧠",
         title: {
-          es: "Conocimiento y automatizaciones",
-          en: "Knowledge and automations",
+          es: "Preguntas que el agente conoce",
+          en: "Questions the agent knows",
         },
         description: {
-          es: "Información real y acciones conectadas.",
-          en: "Real information and connected actions.",
+          es: "Editá respuestas y mantené la información al día.",
+          en: "Edit answers and keep information up to date.",
+        },
+      },
+      {
+        key: "day",
+        emoji: "💬",
+        title: { es: "El volumen día por día", en: "Daily conversation volume" },
+        description: {
+          es: "Detectá cambios en la demanda.",
+          en: "Spot changes in demand.",
+        },
+      },
+      {
+        key: "hourly",
+        emoji: "🕒",
+        title: {
+          es: "Los horarios con más actividad",
+          en: "Your busiest hours",
+        },
+        description: {
+          es: "Organizá mejor la cobertura del equipo.",
+          en: "Plan team coverage more effectively.",
+        },
+      },
+      {
+        key: "services",
+        emoji: "🛠️",
+        title: {
+          es: "Servicios listos para responder",
+          en: "Services ready for replies",
+        },
+        description: {
+          es: "Precios, duración y disponibilidad en contexto.",
+          en: "Prices, duration and availability in context.",
         },
       },
     ],
@@ -61,6 +89,7 @@ export const LANDING_COPY = {
     },
     items: [
       {
+        emoji: "🏪",
         title: {
           es: "Elegí y configurá tu espacio",
           en: "Choose and configure your workspace",
@@ -71,6 +100,7 @@ export const LANDING_COPY = {
         },
       },
       {
+        emoji: "📚",
         title: {
           es: "Cargá el conocimiento del negocio",
           en: "Add your business knowledge",
@@ -81,6 +111,7 @@ export const LANDING_COPY = {
         },
       },
       {
+        emoji: "🚀",
         title: {
           es: "Conectá tus canales y activá el agente",
           en: "Connect your channels and activate the agent",
@@ -119,8 +150,9 @@ export const LANDING_COPY = {
     eyebrow: LocalizedText;
     title: LocalizedText;
     description: LocalizedText;
-    capabilities: readonly {
-      icon: "inbox" | "agent" | "team" | "automation";
+    cards: readonly {
+      key: "summary" | "aiHuman" | "knowledge" | "day" | "hourly" | "services";
+      emoji: string;
       title: LocalizedText;
       description: LocalizedText;
     }[];
@@ -130,6 +162,7 @@ export const LANDING_COPY = {
     title: LocalizedText;
     description: LocalizedText;
     items: readonly {
+      emoji: string;
       title: LocalizedText;
       description: LocalizedText;
     }[];

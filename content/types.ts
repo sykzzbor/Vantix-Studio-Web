@@ -32,7 +32,9 @@ export type ScreenshotId =
   | "metrics-summary"
   | "metrics-conversations-day"
   | "metrics-hourly"
-  | "metrics-ai-human";
+  | "metrics-ai-human"
+  | "knowledge-faqs"
+  | "business-services";
 
 export type ScreenshotAsset = {
   src: string;
@@ -51,7 +53,9 @@ export type LandingScreenshotPlacement =
   | "metricsSummary"
   | "metricsDay"
   | "metricsHourly"
-  | "metricsAiHuman";
+  | "metricsAiHuman"
+  | "knowledgeFaqs"
+  | "businessServices";
 
 export type LandingScreenshotPlacementMap = Readonly<
   Record<LandingScreenshotPlacement, ScreenshotId>

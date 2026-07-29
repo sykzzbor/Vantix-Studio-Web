@@ -34,6 +34,8 @@ test("la landing asigna una captura conceptual distinta a cada ubicación", () =
     metricsDay: "metrics-conversations-day",
     metricsHourly: "metrics-hourly",
     metricsAiHuman: "metrics-ai-human",
+    knowledgeFaqs: "knowledge-faqs",
+    businessServices: "business-services",
   });
 
   const screenshotIds = Object.values(LANDING_SCREENSHOT_PLACEMENTS);

@@ -158,6 +158,44 @@ export const SCREENSHOTS = [
       },
     },
   },
+  {
+    id: "knowledge-faqs",
+    alt: {
+      es: "Preguntas frecuentes configuradas en la base de conocimiento de VantixApp",
+      en: "Frequently asked questions configured in the VantixApp knowledge base",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/knowledge-faqs.png",
+        width: 2630,
+        height: 820,
+      },
+      dark: {
+        src: "/screenshots/dark/knowledge-faqs.png",
+        width: 2648,
+        height: 808,
+      },
+    },
+  },
+  {
+    id: "business-services",
+    alt: {
+      es: "Servicios del negocio configurados en VantixApp",
+      en: "Business services configured in VantixApp",
+    },
+    assets: {
+      light: {
+        src: "/screenshots/light/business-services.png",
+        width: 2658,
+        height: 700,
+      },
+      dark: {
+        src: "/screenshots/dark/business-services.png",
+        width: 2616,
+        height: 696,
+      },
+    },
+  },
 ] as const satisfies readonly ScreenshotDefinition[];
 
 export const SCREENSHOTS_BY_ID = Object.fromEntries(
@@ -177,6 +215,8 @@ export const LANDING_SCREENSHOT_PLACEMENTS = {
   metricsDay: "metrics-conversations-day",
   metricsHourly: "metrics-hourly",
   metricsAiHuman: "metrics-ai-human",
+  knowledgeFaqs: "knowledge-faqs",
+  businessServices: "business-services",
 } as const satisfies LandingScreenshotPlacementMap;
 
 export function getScreenshotAsset(id: ScreenshotId, theme: Theme) {

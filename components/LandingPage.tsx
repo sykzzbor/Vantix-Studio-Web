@@ -6,10 +6,6 @@ import {
   IntegrationIcon,
   type IntegrationIconName,
 } from "@/components/IntegrationIcon";
-import {
-  LandingIcon,
-  type LandingIconName,
-} from "@/components/LandingIcon";
 import { PricingSection } from "@/components/PricingSection";
 import { ProductScreenshot } from "@/components/ProductScreenshot";
 import { ScrollReveal } from "@/components/ScrollReveal";
@@ -136,31 +132,14 @@ function ProductSchema({ locale }: { locale: Locale }) {
 
 function MetricsWall({ locale }: { locale: Locale }) {
   const copy = LANDING_COPY.metrics;
-  const placements = [
-    {
-      key: "summary",
-      id: LANDING_SCREENSHOT_PLACEMENTS.metricsSummary,
-      label: locale === "es" ? "Resumen del período" : "Period summary",
-    },
-    {
-      key: "day",
-      id: LANDING_SCREENSHOT_PLACEMENTS.metricsDay,
-      label: locale === "es" ? "Conversaciones por día" : "Conversations by day",
-    },
-    {
-      key: "hourly",
-      id: LANDING_SCREENSHOT_PLACEMENTS.metricsHourly,
-      label: locale === "es" ? "Actividad por horario" : "Hourly activity",
-    },
-    {
-      key: "ai-human",
-      id: LANDING_SCREENSHOT_PLACEMENTS.metricsAiHuman,
-      label:
-        locale === "es"
-          ? "IA frente a atención humana"
-          : "AI compared with human service",
-    },
-  ] as const;
+  const screenshotIds = {
+    summary: LANDING_SCREENSHOT_PLACEMENTS.metricsSummary,
+    aiHuman: LANDING_SCREENSHOT_PLACEMENTS.metricsAiHuman,
+    knowledge: LANDING_SCREENSHOT_PLACEMENTS.knowledgeFaqs,
+    day: LANDING_SCREENSHOT_PLACEMENTS.metricsDay,
+    hourly: LANDING_SCREENSHOT_PLACEMENTS.metricsHourly,
+    services: LANDING_SCREENSHOT_PLACEMENTS.businessServices,
+  } as const;
 
   return (
     <section className="section vx-metrics" id="metricas">
@@ -171,28 +150,32 @@ function MetricsWall({ locale }: { locale: Locale }) {
           <p>{copy.description[locale]}</p>
         </header>
 
-        <div className="vx-metric-capabilities" data-reveal>
-          {copy.capabilities.map((capability) => (
-            <article key={capability.title.en}>
-              <span>
-                <LandingIcon name={capability.icon} />
-              </span>
-              <h3>{capability.title[locale]}</h3>
-              <p>{capability.description[locale]}</p>
-            </article>
-          ))}
-        </div>
+        <div className="vx-visual-bento" data-reveal>
+          {copy.cards.map((card) => {
+            const id = screenshotIds[card.key];
 
-        <div className="vx-metrics-wall" data-reveal>
-          {placements.map(({ key, id, label }) => (
-            <figure className={`vx-metric vx-metric-${key}`} key={id}>
-              <ProductScreenshot
-                source={screenshotSource(id)}
-                alt={SCREENSHOTS_BY_ID[id].alt[locale]}
-              />
-              <figcaption>{label}</figcaption>
-            </figure>
-          ))}
+            return (
+              <figure
+                className={`vx-visual-card vx-visual-${card.key}`}
+                key={card.key}
+              >
+                <ProductScreenshot
+                  source={screenshotSource(id)}
+                  alt={SCREENSHOTS_BY_ID[id].alt[locale]}
+                />
+                <figcaption>
+                  <span className="vx-card-emoji" aria-hidden="true">
+                    {card.emoji}
+                  </span>
+                  <div>
+                    <h3>{card.title[locale]}</h3>
+                    <p>{card.description[locale]}</p>
+                  </div>
+                  <i aria-hidden="true">↗</i>
+                </figcaption>
+              </figure>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -201,11 +184,6 @@ function MetricsWall({ locale }: { locale: Locale }) {
 
 function HowItWorks({ locale }: { locale: Locale }) {
   const copy = LANDING_COPY.steps;
-  const icons: readonly LandingIconName[] = [
-    "workspace",
-    "knowledge",
-    "connect",
-  ];
 
   return (
     <section className="section vx-process" id="como-funciona">
@@ -216,14 +194,11 @@ function HowItWorks({ locale }: { locale: Locale }) {
           <p>{copy.description[locale]}</p>
         </header>
 
-        <div className="vx-process-track" data-reveal>
-          <span className="vx-process-line" aria-hidden="true">
-            <i />
-          </span>
-          {copy.items.map((item, index) => (
+        <div className="vx-process-cards" data-reveal>
+          {copy.items.map((item) => (
             <article key={item.title.en}>
-              <span className="vx-process-icon">
-                <LandingIcon name={icons[index]} />
+              <span className="vx-process-emoji" aria-hidden="true">
+                {item.emoji}
               </span>
               <h3>{item.title[locale]}</h3>
               <p>{item.description[locale]}</p>
