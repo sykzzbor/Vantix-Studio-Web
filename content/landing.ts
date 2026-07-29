@@ -1,50 +1,167 @@
-import type { FeatureId, LocalizedText, ScreenshotId } from "@/content/types";
+import type { FeatureId, LocalizedText } from "@/content/types";
 
 export const LANDING_COPY = {
+  trust: [
+    { es: "Prueba de 5 días", en: "5-day trial" },
+    { es: "Credenciales cifradas", en: "Encrypted credentials" },
+    {
+      es: "Equipos, roles y permisos",
+      en: "Teams, roles and permissions",
+    },
+    {
+      es: "IA y control humano",
+      en: "AI and human control",
+    },
+    {
+      es: "Implementación acompañada",
+      en: "Guided implementation",
+    },
+  ],
   product: {
-    eyebrow: { es: "La operación, a la vista", en: "Your operation, in view" },
+    eyebrow: { es: "Todo en un solo lugar", en: "Everything in one place" },
     title: {
-      es: "Todas las conversaciones, sin perder el control.",
-      en: "Every conversation, without losing control.",
+      es: "Una bandeja para atender, organizar y avanzar.",
+      en: "One inbox to serve, organize and move forward.",
     },
     description: {
-      es: "VantixApp centraliza la atención del negocio. La IA responde automáticamente y una persona puede tomar la conversación cuando sea necesario.",
-      en: "VantixApp centralizes customer service. AI replies automatically, and a person can take over whenever needed.",
+      es: "Cada conversación reúne el mensaje, los datos del contacto, el responsable y el historial. La IA atiende y tu equipo interviene sin perder contexto.",
+      en: "Every conversation brings together the message, contact details, owner and history. AI handles service and your team steps in without losing context.",
+    },
+    benefits: [
+      {
+        title: { es: "Atención centralizada", en: "Centralized service" },
+        description: {
+          es: "Todos los chats en una bandeja compartida.",
+          en: "Every chat in one shared inbox.",
+        },
+      },
+      {
+        title: {
+          es: "Conocimiento real",
+          en: "Real business knowledge",
+        },
+        description: {
+          es: "Respuestas basadas en tu información.",
+          en: "Replies grounded in your information.",
+        },
+      },
+      {
+        title: { es: "Control humano", en: "Human control" },
+        description: {
+          es: "Tu equipo toma la conversación cuando hace falta.",
+          en: "Your team takes over whenever needed.",
+        },
+      },
+      {
+        title: { es: "Seguimiento completo", en: "Complete follow-up" },
+        description: {
+          es: "Estado, responsable, notas e historial a la vista.",
+          en: "Status, owner, notes and history in view.",
+        },
+      },
+    ],
+  },
+  features: {
+    eyebrow: { es: "Funciones conectadas", en: "Connected features" },
+    title: {
+      es: "Menos herramientas sueltas. Más contexto para trabajar.",
+      en: "Fewer disconnected tools. More context for getting work done.",
+    },
+    description: {
+      es: "VantixApp combina atención, clientes, conocimiento y equipo dentro del mismo flujo.",
+      en: "VantixApp combines service, customers, knowledge and teamwork in one workflow.",
+    },
+    security: {
+      title: { es: "Seguridad y permisos", en: "Security and permissions" },
+      description: {
+        es: "Cada negocio mantiene su información separada y cada integrante accede según su rol.",
+        en: "Each business keeps its information separate and every teammate gets role-based access.",
+      },
+      items: [
+        { es: "Credenciales cifradas", en: "Encrypted credentials" },
+        {
+          es: "Roles Owner, Admin, Agent y Viewer",
+          en: "Owner, Admin, Agent and Viewer roles",
+        },
+        {
+          es: "Acceso separado por negocio",
+          en: "Access separated by business",
+        },
+      ],
+    },
+    agentCaption: {
+      es: "Probá y ajustá las respuestas antes de activar el agente.",
+      en: "Test and refine replies before activating the agent.",
     },
   },
-  capabilities: {
-    label: {
-      es: "Capacidades incluidas en este flujo",
-      en: "Capabilities included in this workflow",
+  metrics: {
+    eyebrow: { es: "Métricas", en: "Analytics" },
+    title: {
+      es: "La atención, vista como una operación completa.",
+      en: "Customer service, viewed as one complete operation.",
     },
+    description: {
+      es: "Volumen, actividad, tiempos de respuesta y participación de la IA reunidos en un solo panel.",
+      en: "Volume, activity, response times and AI participation brought together in one dashboard.",
+    },
+  },
+  steps: {
+    eyebrow: { es: "Puesta en marcha", en: "Getting started" },
+    title: {
+      es: "Tu espacio listo en tres movimientos.",
+      en: "Your workspace ready in three moves.",
+    },
+    description: {
+      es: "Configuramos el punto de partida y te acompañamos hasta que el agente queda operativo.",
+      en: "We set up the starting point and support you until the agent is operational.",
+    },
+    items: [
+      {
+        title: {
+          es: "Elegí y configurá tu espacio",
+          en: "Choose and configure your workspace",
+        },
+        description: {
+          es: "Creá el negocio, invitá al equipo y definí roles.",
+          en: "Create the business, invite your team and define roles.",
+        },
+      },
+      {
+        title: {
+          es: "Cargá el conocimiento del negocio",
+          en: "Add your business knowledge",
+        },
+        description: {
+          es: "Sumá productos, servicios, preguntas y documentos.",
+          en: "Add products, services, questions and documents.",
+        },
+      },
+      {
+        title: {
+          es: "Conectá tus canales y activá el agente",
+          en: "Connect your channels and activate the agent",
+        },
+        description: {
+          es: "Probá las respuestas, conectá las herramientas y empezá a atender.",
+          en: "Test replies, connect your tools and start serving customers.",
+        },
+      },
+    ],
   },
   integrations: {
-    betaNote: {
-      es: "Las integraciones beta se habilitan según el caso. Tiendanube y WooCommerce son de consulta; Google Sheets exporta datos de forma manual y unidireccional.",
-      en: "Beta integrations are enabled case by case. Tiendanube and WooCommerce are read-only; Google Sheets exports data manually in one direction.",
-    },
-  },
-  useCases: {
-    eyebrow: { es: "Casos de uso", en: "Use cases" },
+    eyebrow: { es: "Integraciones", en: "Integrations" },
     title: {
-      es: "La misma plataforma, configurada para operaciones distintas.",
-      en: "One platform, configured for different operations.",
+      es: "Tu negocio ya usa estas herramientas. VantixApp las conecta.",
+      en: "Your business already uses these tools. VantixApp connects them.",
     },
     description: {
-      es: "VantixApp se adapta al conocimiento, el equipo y los procesos de cada negocio.",
-      en: "VantixApp adapts to each business's knowledge, team and processes.",
+      es: "Canales, agenda, comercio, documentos y automatizaciones dentro de una misma operación.",
+      en: "Channels, scheduling, commerce, documents and automations within one operation.",
     },
-    problemLabel: { es: "Lo que pasa hoy", en: "What happens today" },
-    outcomeLabel: { es: "Con VantixApp", en: "With VantixApp" },
-  },
-  comparison: {
-    eyebrow: { es: "Antes y después", en: "Before and after" },
-    title: {
-      es: "Menos tareas sueltas. Más contexto para decidir.",
-      en: "Fewer disconnected tasks. More context for decisions.",
+    clarification: {
+      es: "Mercado Pago se utiliza para la facturación de los planes de VantixApp.",
+      en: "Mercado Pago is used for VantixApp plan billing.",
     },
-    beforeLabel: { es: "Sin centralizar", en: "Without centralization" },
-    afterLabel: { es: "Con VantixApp", en: "With VantixApp" },
   },
   contact: {
     whatsapp: { es: "Consultar por WhatsApp", en: "Message us on WhatsApp" },
@@ -53,196 +170,88 @@ export const LANDING_COPY = {
       en: "You can also create an account and explore VantixApp for 5 days, with no card required.",
     },
   },
-} as const;
+} as const satisfies {
+  trust: readonly LocalizedText[];
+  product: {
+    eyebrow: LocalizedText;
+    title: LocalizedText;
+    description: LocalizedText;
+    benefits: readonly {
+      title: LocalizedText;
+      description: LocalizedText;
+    }[];
+  };
+  features: {
+    eyebrow: LocalizedText;
+    title: LocalizedText;
+    description: LocalizedText;
+    security: {
+      title: LocalizedText;
+      description: LocalizedText;
+      items: readonly LocalizedText[];
+    };
+    agentCaption: LocalizedText;
+  };
+  metrics: {
+    eyebrow: LocalizedText;
+    title: LocalizedText;
+    description: LocalizedText;
+  };
+  steps: {
+    eyebrow: LocalizedText;
+    title: LocalizedText;
+    description: LocalizedText;
+    items: readonly {
+      title: LocalizedText;
+      description: LocalizedText;
+    }[];
+  };
+  integrations: {
+    eyebrow: LocalizedText;
+    title: LocalizedText;
+    description: LocalizedText;
+    clarification: LocalizedText;
+  };
+  contact: {
+    whatsapp: LocalizedText;
+    note: LocalizedText;
+  };
+};
 
-export const PROBLEMS = [
+export const FEATURE_BENTO = [
   {
-    number: "01",
-    title: {
-      es: "Consultas que llegan cuando nadie está conectado",
-      en: "Inquiries that arrive while nobody is online",
-    },
-    description: {
-      es: "El agente mantiene la atención activa con información real del negocio y deriva lo que necesita una persona.",
-      en: "The agent keeps customer service active with real business information and hands off anything that needs a person.",
-    },
+    id: "inbox",
+    icon: "inbox",
+    featureIds: ["inbox", "crm", "notes-and-labels"],
+    size: "wide",
   },
   {
-    number: "02",
-    title: {
-      es: "Chats repartidos y seguimiento de memoria",
-      en: "Scattered chats and memory-based follow-up",
-    },
-    description: {
-      es: "La bandeja reúne conversaciones, contactos, estados, responsables, etiquetas y notas internas.",
-      en: "The inbox brings together conversations, contacts, statuses, owners, labels and internal notes.",
-    },
+    id: "agent",
+    icon: "agent",
+    featureIds: ["ai-agent", "ai-human-mode"],
+    size: "hero",
   },
   {
-    number: "03",
-    title: {
-      es: "El equipo repite las mismas respuestas",
-      en: "Your team repeats the same answers",
-    },
-    description: {
-      es: "Productos, servicios, preguntas frecuentes y documentos forman una única base de conocimiento.",
-      en: "Products, services, FAQs and documents become one shared knowledge base.",
-    },
-  },
-] as const;
-
-export const PRODUCT_SIGNALS = [
-  {
-    title: { es: "IA activa", en: "AI active" },
-    description: {
-      es: "Responde con el conocimiento cargado.",
-      en: "Replies with the knowledge you provide.",
-    },
-  },
-  {
-    title: { es: "Atención humana", en: "Human service" },
-    description: {
-      es: "El equipo toma el control con un clic.",
-      en: "Your team takes over with one click.",
-    },
-  },
-  {
-    title: { es: "Cliente identificado", en: "Customer identified" },
-    description: {
-      es: "Datos y contexto junto a la conversación.",
-      en: "Details and context next to the conversation.",
-    },
-  },
-  {
-    title: { es: "Responsable visible", en: "Visible owner" },
-    description: {
-      es: "Cada consulta tiene seguimiento.",
-      en: "Every inquiry has clear ownership.",
-    },
-  },
-] as const satisfies readonly {
-  title: LocalizedText;
-  description: LocalizedText;
-}[];
-
-export const FEATURE_STORIES = [
-  {
-    id: "service",
-    featureIds: ["inbox", "ai-human-mode", "history"] as const,
-    screenshotId: "conversations-overview",
-    layout: "wide",
+    id: "team",
+    icon: "team",
+    featureIds: ["team", "history"],
+    size: "standard",
   },
   {
     id: "knowledge",
-    featureIds: ["ai-agent", "knowledge"] as const,
-    screenshotId: "agent-playground",
-    layout: "split",
+    icon: "knowledge",
+    featureIds: ["knowledge"],
+    size: "standard",
   },
   {
-    id: "customer",
-    featureIds: ["crm", "notes-and-labels", "team"] as const,
-    screenshotId: "conversations-human",
-    layout: "reverse",
-  },
-  {
-    id: "analytics",
-    featureIds: ["metrics", "automations"] as const,
-    screenshotId: "metrics-summary",
-    layout: "metrics",
+    id: "automations",
+    icon: "automation",
+    featureIds: ["automations"],
+    size: "standard",
   },
 ] as const satisfies readonly {
   id: string;
+  icon: "inbox" | "agent" | "team" | "knowledge" | "automation";
   featureIds: readonly FeatureId[];
-  screenshotId: ScreenshotId;
-  layout: "wide" | "split" | "reverse" | "metrics";
+  size: "wide" | "hero" | "standard";
 }[];
-
-export const USE_CASES = [
-  {
-    sector: { es: "Comercios y e-commerce", en: "Retail and e-commerce" },
-    problem: {
-      es: "Stock, precios, envíos y pedidos concentran consultas repetidas.",
-      en: "Stock, pricing, shipping and orders generate repeated inquiries.",
-    },
-    outcome: {
-      es: "El agente responde lo que conoce y el equipo recibe ordenado lo que necesita seguimiento.",
-      en: "The agent answers what it knows and your team receives anything that needs follow-up in an organized way.",
-    },
-  },
-  {
-    sector: { es: "Negocios con turnos", en: "Appointment-based businesses" },
-    problem: {
-      es: "Coordinar disponibilidad por mensaje consume tiempo y genera idas y vueltas.",
-      en: "Coordinating availability over chat takes time and creates unnecessary back-and-forth.",
-    },
-    outcome: {
-      es: "Google Calendar permite consultar disponibilidad, crear, reprogramar y cancelar turnos.",
-      en: "Google Calendar makes it possible to check availability and create, reschedule or cancel appointments.",
-    },
-  },
-  {
-    sector: { es: "Servicios profesionales", en: "Professional services" },
-    problem: {
-      es: "El equipo explica la misma información antes de saber si una consulta puede avanzar.",
-      en: "The team repeats the same information before knowing whether an inquiry can move forward.",
-    },
-    outcome: {
-      es: "La IA resuelve lo frecuente y deriva con el historial completo cuando hace falta criterio.",
-      en: "AI handles common questions and hands off the complete history when judgment is required.",
-    },
-  },
-  {
-    sector: { es: "Equipos de atención y ventas", en: "Service and sales teams" },
-    problem: {
-      es: "Sin responsables ni estados claros, las oportunidades quedan sin retomar.",
-      en: "Without clear ownership and statuses, opportunities are left behind.",
-    },
-    outcome: {
-      es: "Cada conversación conserva contacto, responsable, estado, notas y etiquetas.",
-      en: "Every conversation keeps its contact, owner, status, notes and labels together.",
-    },
-  },
-] as const;
-
-export const COMPARISON = [
-  {
-    before: {
-      es: "Mensajes repartidos entre teléfonos",
-      en: "Messages scattered across phones",
-    },
-    after: {
-      es: "Una bandeja compartida con contexto",
-      en: "One shared inbox with context",
-    },
-  },
-  {
-    before: {
-      es: "Respuestas repetidas a mano",
-      en: "Repeated answers written manually",
-    },
-    after: {
-      es: "IA basada en la información del negocio",
-      en: "AI grounded in business information",
-    },
-  },
-  {
-    before: {
-      es: "Seguimiento que depende de la memoria",
-      en: "Follow-up that depends on memory",
-    },
-    after: {
-      es: "CRM, estados, responsables, notas y etiquetas",
-      en: "CRM, statuses, owners, notes and labels",
-    },
-  },
-  {
-    before: {
-      es: "Elegir entre automatización o atención personal",
-      en: "Choosing between automation and personal service",
-    },
-    after: {
-      es: "Modo IA y humano dentro de la misma conversación",
-      en: "AI and human mode inside the same conversation",
-    },
-  },
-] as const;

@@ -63,8 +63,8 @@ export const FAQS = [
       en: "Which integrations are available?",
     },
     answer: {
-      es: "WhatsApp Business, Google Calendar y documentos PDF están disponibles. Tiendanube, Google Sheets, WooCommerce y n8n se ofrecen en beta. La interpretación de imágenes y la comprensión de audios están previstas para más adelante. Los estados actualizados se muestran en la sección Integraciones.",
-      en: "WhatsApp Business, Google Calendar and PDF documents are available. Tiendanube, Google Sheets, WooCommerce and n8n are offered in beta. Image and audio understanding are planned for a later release. Current statuses are listed in the Integrations section.",
+      es: "VantixApp conecta WhatsApp Business, Google Calendar, Google Sheets, Tiendanube, WooCommerce, documentos y automatizaciones con n8n. También interpreta imágenes y audios dentro de la conversación. En la demo revisamos qué conexión necesita tu operación.",
+      en: "VantixApp connects WhatsApp Business, Google Calendar, Google Sheets, Tiendanube, WooCommerce, documents and n8n automations. It also understands images and audio within conversations. During the demo, we review which connections your operation needs.",
     },
   },
   {

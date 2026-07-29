@@ -140,6 +140,131 @@ export function PricingSection({
     }
   }
 
+  function renderPlan(
+    plan: (typeof PLANS)[number],
+    layout: "card" | "custom" = "card",
+  ) {
+    const custom = plan.monthlyUsd === null;
+    const displayedPrice =
+      !custom && currency === "ARS" && exchangeRate
+        ? formatMoney(
+            convertUsdToArs(plan.monthlyUsd, exchangeRate),
+            "ARS",
+            locale,
+          )
+        : !custom
+          ? formatMoney(plan.monthlyUsd, "USD", locale)
+          : PRICING_SETTINGS.customPriceLabel[locale];
+    const ctaHref =
+      plan.cta === "contactSales"
+        ? whatsAppLink(
+            locale === "es"
+              ? "Hola, quiero consultar por un plan personalizado de VantixApp."
+              : "Hi, I would like to discuss a custom VantixApp plan.",
+          )
+        : APP_REGISTER_URL;
+    const ctaLabel =
+      plan.cta === "contactSales"
+        ? translations.common.contactSales
+        : translations.common.startTrial;
+
+    return (
+      <article
+        className={`plan${plan.featured ? " featured" : ""}${
+          layout === "custom" ? " plan-custom" : ""
+        }`}
+        key={plan.id}
+      >
+        {plan.featured ? (
+          <span className="plan-flag">{translations.common.mostChosen}</span>
+        ) : null}
+
+        <div className="plan-top">
+          <h3>{plan.name[locale]}</h3>
+          <p>{plan.description[locale]}</p>
+        </div>
+
+        <div className="plan-price">
+          <strong>{displayedPrice}</strong>
+          {!custom ? (
+            <>
+              <span>{PRICING_SETTINGS.billingPeriod[locale]}</span>
+              {currency === "ARS" && exchangeRate ? (
+                <small>
+                  {formatMoney(plan.monthlyUsd, "USD", locale)}{" "}
+                  {locale === "es" ? "facturados en USD" : "billed in USD"}
+                </small>
+              ) : null}
+            </>
+          ) : null}
+        </div>
+
+        <a
+          className={plan.featured ? "button" : "button button-secondary"}
+          href={ctaHref}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`${ctaLabel}: ${plan.name[locale]}`}
+          onClick={() => {
+            track({ name: "pricing_plan_select", plan: plan.id });
+            if (plan.cta === "contactSales") {
+              track({ name: "whatsapp_open", location: "pricing" });
+            } else {
+              track({ name: "cta_trial", location: "pricing" });
+            }
+          }}
+        >
+          {ctaLabel}
+          <ArrowIcon />
+        </a>
+
+        {!custom ? (
+          <p className="plan-trial">
+            {translations.pricing.trial} ·{" "}
+            {locale === "es" ? "sin tarjeta" : "no card required"}
+          </p>
+        ) : null}
+
+        {!custom ? (
+          <div className="plan-capacity">
+            <h4>{translations.pricing.limitsTitle}</h4>
+            <ul>
+              {LIMIT_KEYS.map((limitKey) => {
+                const limit = plan.limits[limitKey];
+                if (limit === null) return null;
+
+                return (
+                  <li key={limitKey}>
+                    <CheckIcon />
+                    <span>
+                      {formatNumber(limit, locale)}{" "}
+                      {formatLimitLabel(limitKey, limit, locale)}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
+
+        <div className="plan-includes">
+          <h4>{translations.pricing.featuresTitle}</h4>
+          <ul>
+            {plan.highlights.map((highlight) => (
+              <li key={highlight.es}>
+                <CheckIcon />
+                <span>{highlight[locale]}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </article>
+    );
+  }
+
+  const primaryPlans = PLANS.filter((plan) => plan.monthlyUsd !== null);
+  const customPlan = PLANS.find((plan) => plan.monthlyUsd === null);
+
   return (
     <div className="pricing-block">
       <div className="pricing-controls">
@@ -190,129 +315,14 @@ export function PricingSection({
       </p>
 
       <div className="plans-grid">
-        {PLANS.map((plan) => {
-          const custom = plan.monthlyUsd === null;
-          const displayedPrice =
-            !custom && currency === "ARS" && exchangeRate
-              ? formatMoney(
-                  convertUsdToArs(plan.monthlyUsd, exchangeRate),
-                  "ARS",
-                  locale,
-                )
-              : !custom
-                ? formatMoney(plan.monthlyUsd, "USD", locale)
-                : PRICING_SETTINGS.customPriceLabel[locale];
-          const ctaHref =
-            plan.cta === "contactSales"
-              ? whatsAppLink(
-                  locale === "es"
-                    ? "Hola, quiero consultar por un plan personalizado de VantixApp."
-                    : "Hi, I would like to discuss a custom VantixApp plan.",
-                )
-              : APP_REGISTER_URL;
-          const ctaLabel =
-            plan.cta === "contactSales"
-              ? translations.common.contactSales
-              : translations.common.startTrial;
-
-          return (
-            <article
-              className={`plan${plan.featured ? " featured" : ""}`}
-              key={plan.id}
-            >
-              {plan.featured ? (
-                <span className="plan-flag">
-                  {translations.common.mostChosen}
-                </span>
-              ) : null}
-
-              <div className="plan-top">
-                <h3>{plan.name[locale]}</h3>
-                <p>{plan.description[locale]}</p>
-              </div>
-
-              <div className="plan-price">
-                <strong>{displayedPrice}</strong>
-                {!custom ? (
-                  <>
-                    <span>{PRICING_SETTINGS.billingPeriod[locale]}</span>
-                    {currency === "ARS" && exchangeRate ? (
-                      <small>
-                        {formatMoney(plan.monthlyUsd, "USD", locale)}{" "}
-                        {locale === "es"
-                          ? "facturados en USD"
-                          : "billed in USD"}
-                      </small>
-                    ) : null}
-                  </>
-                ) : null}
-              </div>
-
-              <a
-                className={
-                  plan.featured ? "button" : "button button-secondary"
-                }
-                href={ctaHref}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`${ctaLabel}: ${plan.name[locale]}`}
-                onClick={() => {
-                  track({ name: "pricing_plan_select", plan: plan.id });
-                  if (plan.cta === "contactSales") {
-                    track({ name: "whatsapp_open", location: "pricing" });
-                  } else {
-                    track({ name: "cta_trial", location: "pricing" });
-                  }
-                }}
-              >
-                {ctaLabel}
-                <ArrowIcon />
-              </a>
-
-              {!custom ? (
-                <p className="plan-trial">
-                  {translations.pricing.trial} ·{" "}
-                  {locale === "es" ? "sin tarjeta" : "no card required"}
-                </p>
-              ) : null}
-
-              {!custom ? (
-                <div className="plan-capacity">
-                  <h4>{translations.pricing.limitsTitle}</h4>
-                  <ul>
-                    {LIMIT_KEYS.map((limitKey) => {
-                      const limit = plan.limits[limitKey];
-                      if (limit === null) return null;
-
-                      return (
-                        <li key={limitKey}>
-                          <CheckIcon />
-                          <span>
-                            {formatNumber(limit, locale)}{" "}
-                            {formatLimitLabel(limitKey, limit, locale)}
-                          </span>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </div>
-              ) : null}
-
-              <div className="plan-includes">
-                <h4>{translations.pricing.featuresTitle}</h4>
-                <ul>
-                  {plan.highlights.map((highlight) => (
-                    <li key={highlight.es}>
-                      <CheckIcon />
-                      <span>{highlight[locale]}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </article>
-          );
-        })}
+        {primaryPlans.map((plan) => renderPlan(plan))}
       </div>
+
+      {customPlan ? (
+        <div className="custom-plan-wrap">
+          {renderPlan(customPlan, "custom")}
+        </div>
+      ) : null}
 
       <p className="pricing-note">
         {PRICING_SETTINGS.variableCostsNote[locale]}

@@ -48,6 +48,19 @@ export type ScreenshotDefinition = {
   assets: Readonly<Record<Theme, ScreenshotAsset>>;
 };
 
+export type LandingScreenshotPlacement =
+  | "hero"
+  | "product"
+  | "agent"
+  | "metricsSummary"
+  | "metricsDay"
+  | "metricsHourly"
+  | "metricsAiHuman";
+
+export type LandingScreenshotPlacementMap = Readonly<
+  Record<LandingScreenshotPlacement, ScreenshotId>
+>;
+
 export type FeatureId =
   | "inbox"
   | "ai-agent"
@@ -126,19 +139,6 @@ export type PlanDefinition = {
   highlights: readonly LocalizedText[];
   cta: "startTrial" | "contactSales";
   featured: boolean;
-};
-
-export type TestimonialDefinition = {
-  id: string;
-  isDemo: boolean;
-  published: boolean;
-  badge: LocalizedText;
-  name: LocalizedText;
-  role: LocalizedText;
-  business: LocalizedText;
-  quote: LocalizedText;
-  result: LocalizedText;
-  avatarSrc?: string;
 };
 
 export type FaqId =

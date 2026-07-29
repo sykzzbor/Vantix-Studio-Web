@@ -30,13 +30,14 @@ export const TRANSLATIONS = {
     },
     hero: {
       eyebrow: "Atención y ventas con IA",
-      title: "Centralizá tus conversaciones y automatizá tu negocio con IA.",
+      titleLead: "Convertí tus conversaciones en ",
+      titleHighlight: "clientes atendidos, organizados y listos para avanzar.",
       description:
         "VantixApp responde con la información de tu negocio, organiza cada contacto y permite que tu equipo tome el control cuando sea necesario.",
-      primaryCta: "Agendar una demo",
-      secondaryCta: "Ver funciones",
+      primaryCta: "Probar gratis",
+      secondaryCta: "Agendar una demo",
       trust:
-        "5 días de prueba · Sin tarjeta para explorar · Acompañamiento personalizado",
+        "5 días de prueba · sin tarjeta · implementación acompañada",
     },
     carousel: {
       label: "Capturas reales de VantixApp",
@@ -95,17 +96,9 @@ export const TRANSLATIONS = {
       eyebrow: "Integraciones",
       title: "Conectado con las herramientas que usa tu negocio.",
       description:
-        "Cada integración indica su estado real. Las opciones beta se habilitan y configuran según el caso.",
+        "Canales, agenda, comercio, documentos y automatizaciones conectados a una misma operación.",
       billingClarification:
         "Mercado Pago se usa para pagar planes de VantixApp; no para cobrar ventas dentro de las conversaciones.",
-    },
-    testimonials: {
-      eyebrow: "Experiencias",
-      title: "Lo que cambia cuando la atención deja de depender de un teléfono.",
-      description:
-        "Todavía no publicamos testimonios de clientes. Estas tarjetas muestran el formato y están identificadas como demostración.",
-      demoNotice:
-        "Los datos demostrativos del código no representan clientes ni resultados reales.",
     },
     pricing: {
       eyebrow: "Planes",
@@ -205,13 +198,14 @@ export const TRANSLATIONS = {
     },
     hero: {
       eyebrow: "AI-powered customer service and sales",
-      title: "Centralize conversations and automate your business with AI.",
+      titleLead: "Turn your conversations into ",
+      titleHighlight: "customers who are served, organized and ready to move forward.",
       description:
         "VantixApp replies with your business information, organizes every contact and lets your team take control whenever needed.",
-      primaryCta: "Book a demo",
-      secondaryCta: "Explore features",
+      primaryCta: "Start free",
+      secondaryCta: "Book a demo",
       trust:
-        "5-day trial · No card required to explore · Personalized onboarding",
+        "5-day trial · no card required · guided implementation",
     },
     carousel: {
       label: "Real VantixApp screenshots",
@@ -270,18 +264,9 @@ export const TRANSLATIONS = {
       eyebrow: "Integrations",
       title: "Connected to the tools your business uses.",
       description:
-        "Every integration shows its current status. Beta options are enabled and configured case by case.",
+        "Channels, scheduling, commerce, documents and automations connected to one operation.",
       billingClarification:
         "Mercado Pago is used to pay for VantixApp plans, not to collect sales inside conversations.",
-    },
-    testimonials: {
-      eyebrow: "Experiences",
-      title:
-        "What changes when customer service no longer depends on one phone.",
-      description:
-        "We have not published customer testimonials yet. These cards show the intended format and are clearly identified as demonstrations.",
-      demoNotice:
-        "The demonstration data in the code does not represent real customers or results.",
     },
     pricing: {
       eyebrow: "Plans",

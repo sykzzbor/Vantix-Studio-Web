@@ -227,15 +227,15 @@ export const FEATURES = [
   },
   {
     id: "automations",
-    status: "beta",
+    status: "available",
     eyebrow: { es: "Automatizaciones", en: "Automations" },
     title: {
       es: "Acciones conectadas a lo que pasa en cada conversación",
       en: "Actions connected to what happens in each conversation",
     },
     description: {
-      es: "Los flujos de automatización están en beta y se configuran según el caso para seguimientos y acciones operativas.",
-      en: "Automation flows are in beta and configured case by case for follow-ups and operational actions.",
+      es: "Conectá seguimientos y acciones operativas con flujos configurados para la forma de trabajar de tu negocio.",
+      en: "Connect follow-ups and operational actions through workflows configured around the way your business works.",
     },
     bullets: [
       {
@@ -247,8 +247,8 @@ export const FEATURES = [
         en: "Setup supported by Vantix",
       },
       {
-        es: "Estado beta comunicado con claridad",
-        en: "Beta status clearly disclosed",
+        es: "Flujos adaptados a cada operación",
+        en: "Workflows adapted to each operation",
       },
     ],
     screenshotId: "conversations-ai",

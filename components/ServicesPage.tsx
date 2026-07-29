@@ -22,7 +22,6 @@ const copy = {
     serviceCta: "Consultar este servicio",
     services: [
       {
-        number: "01",
         title: "Landing pages",
         text: "Una página enfocada en una oferta, una campaña o una acción concreta. Ordena el mensaje y facilita la consulta.",
         image: "/images/landingpagelopezpaz-poster.jpg",
@@ -30,7 +29,6 @@ const copy = {
         imagePosition: "center top",
       },
       {
-        number: "02",
         title: "Sitios web",
         text: "Una presencia institucional clara para explicar servicios, mostrar experiencia y generar confianza antes del contacto.",
         image: "/images/landingpageteby-poster.jpg",
@@ -38,7 +36,6 @@ const copy = {
         imagePosition: "center top",
       },
       {
-        number: "03",
         title: "E-commerce",
         text: "Catálogo, compra y contacto ordenados para que vender online no dependa de conversaciones manuales.",
         image: "/images/perfiles-americanos-desktop.png",
@@ -46,7 +43,6 @@ const copy = {
         imagePosition: "center top",
       },
       {
-        number: "04",
         title: "Sistemas personalizados",
         text: "Herramientas internas para organizar clientes, turnos, operaciones y datos sin depender de planillas dispersas.",
         image: "/images/vantix-hero-1280w.webp",
@@ -96,22 +92,18 @@ const copy = {
       title: "Un proceso claro, sin cajas negras.",
       steps: [
         {
-          number: "01",
           title: "Diagnóstico",
           text: "Entendemos el negocio, el público y el objetivo concreto del proyecto.",
         },
         {
-          number: "02",
           title: "Estructura y contenido",
           text: "Ordenamos la información y definimos el recorrido de cada visitante.",
         },
         {
-          number: "03",
           title: "Diseño y desarrollo",
           text: "Construimos la experiencia visual y la adaptamos a cada pantalla.",
         },
         {
-          number: "04",
           title: "Revisión y lanzamiento",
           text: "Probamos enlaces, formularios y responsive antes de publicar con el dominio configurado.",
         },
@@ -136,7 +128,6 @@ const copy = {
     serviceCta: "Ask about this service",
     services: [
       {
-        number: "01",
         title: "Landing pages",
         text: "A focused page for one offer, campaign or action. It organizes the message and makes it easier for visitors to enquire.",
         image: "/images/landingpagelopezpaz-poster.jpg",
@@ -144,7 +135,6 @@ const copy = {
         imagePosition: "center top",
       },
       {
-        number: "02",
         title: "Business websites",
         text: "A clear company presence that explains services, demonstrates experience and builds trust before the first conversation.",
         image: "/images/landingpageteby-poster.jpg",
@@ -152,7 +142,6 @@ const copy = {
         imagePosition: "center top",
       },
       {
-        number: "03",
         title: "E-commerce",
         text: "An organized catalogue, purchase flow and contact experience so online sales do not depend on manual conversations.",
         image: "/images/perfiles-americanos-desktop.png",
@@ -160,7 +149,6 @@ const copy = {
         imagePosition: "center top",
       },
       {
-        number: "04",
         title: "Custom systems",
         text: "Internal tools that organize customers, appointments, operations and data without relying on scattered spreadsheets.",
         image: "/images/vantix-hero-1280w.webp",
@@ -210,22 +198,18 @@ const copy = {
       title: "A clear process, with no black boxes.",
       steps: [
         {
-          number: "01",
           title: "Discovery",
           text: "We understand the business, its audience and the project’s concrete goal.",
         },
         {
-          number: "02",
           title: "Structure and content",
           text: "We organize the information and define the path for each visitor.",
         },
         {
-          number: "03",
           title: "Design and development",
           text: "We build the visual experience and adapt it to every screen size.",
         },
         {
-          number: "04",
           title: "Review and launch",
           text: "We test links, forms and responsive behaviour before publishing with the configured domain.",
         },
@@ -251,7 +235,7 @@ export function ServicesPage({ locale }: ServicesPageProps) {
       </a>
       <SiteHeader locale={locale} variant="services" />
 
-      <main id="contenido">
+      <main id="contenido" className="services-redesign">
         <section className="section studio-hero" id="servicios">
           <div className="container">
             <p className="product-label">
@@ -268,10 +252,9 @@ export function ServicesPage({ locale }: ServicesPageProps) {
         <section className="section services-section" aria-label={text.label}>
           <div className="container">
             <div className="services-list">
-              {text.services.map((service) => (
-                <article className="service-item" key={service.number}>
+              {text.services.map((service, index) => (
+                <article className="service-item" key={service.title}>
                   <div className="service-copy">
-                    <span>{service.number}</span>
                     <h2>{service.title}</h2>
                     <p>{service.text}</p>
                     <a href="#contacto-servicios">
@@ -284,6 +267,7 @@ export function ServicesPage({ locale }: ServicesPageProps) {
                       alt={service.alt}
                       fill
                       sizes="(max-width: 767px) 100vw, 58vw"
+                      loading={index === 0 ? "eager" : "lazy"}
                       style={{ objectPosition: service.imagePosition }}
                     />
                   </div>
@@ -348,8 +332,7 @@ export function ServicesPage({ locale }: ServicesPageProps) {
             </header>
             <ol className="steps-list">
               {text.process.steps.map((step) => (
-                <li key={step.number}>
-                  <span className="step-number">{step.number}</span>
+                <li key={step.title}>
                   <div>
                     <h3>{step.title}</h3>
                     <p>{step.text}</p>

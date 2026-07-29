@@ -2,32 +2,28 @@ import { Suspense } from "react";
 import { ArrowIcon, CheckIcon } from "@/components/ArrowIcon";
 import { ContactForm } from "@/components/ContactForm";
 import { Faq } from "@/components/Faq";
-import { HeroCarousel } from "@/components/HeroCarousel";
 import {
   IntegrationIcon,
   type IntegrationIconName,
 } from "@/components/IntegrationIcon";
+import {
+  LandingIcon,
+  type LandingIconName,
+} from "@/components/LandingIcon";
 import { PricingSection } from "@/components/PricingSection";
 import { ProductScreenshot } from "@/components/ProductScreenshot";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
-import { TestimonialRail } from "@/components/TestimonialRail";
 import {
-  COMPARISON,
   FAQS,
   FEATURES,
-  FEATURE_STORIES,
-  HERO_SCREENSHOT_IDS,
+  FEATURE_BENTO,
   INTEGRATIONS,
-  INTEGRATION_STATUS_LABELS,
   LANDING_COPY,
+  LANDING_SCREENSHOT_PLACEMENTS,
   PLANS,
-  PROBLEMS,
-  PRODUCT_SIGNALS,
-  PUBLISHED_TESTIMONIALS,
   SCREENSHOTS_BY_ID,
-  USE_CASES,
   getTranslations,
   type FeatureId,
   type IntegrationId,
@@ -85,21 +81,6 @@ function integrationIconName(id: IntegrationId): IntegrationIconName {
     case "n8n":
       return "n8n";
   }
-}
-
-function FeatureStatus({
-  status,
-  locale,
-}: {
-  status: "available" | "beta" | "comingSoon";
-  locale: Locale;
-}) {
-  return (
-    <span className={`status-pill status-${status}`}>
-      <i aria-hidden="true" />
-      {INTEGRATION_STATUS_LABELS[status][locale]}
-    </span>
-  );
 }
 
 function ProductSchema({ locale }: { locale: Locale }) {
@@ -161,33 +142,36 @@ function ProductSchema({ locale }: { locale: Locale }) {
   );
 }
 
+function TrustStrip({ locale }: { locale: Locale }) {
+  return (
+    <aside className="vx-trust-strip" aria-label={locale === "es" ? "Confianza" : "Trust"}>
+      <div className="section-shell">
+        {LANDING_COPY.trust.map((item) => (
+          <span key={item.en}>
+            <CheckIcon />
+            {item[locale]}
+          </span>
+        ))}
+      </div>
+    </aside>
+  );
+}
+
 function ProductShowcase({ locale }: { locale: Locale }) {
   const copy = LANDING_COPY.product;
-  const screenshot = SCREENSHOTS_BY_ID["conversations-overview"];
+  const screenshotId = LANDING_SCREENSHOT_PLACEMENTS.product;
+  const screenshot = SCREENSHOTS_BY_ID[screenshotId];
 
   return (
-    <section className="section product-showcase" id="producto">
+    <section className="section vx-product" id="producto">
       <div className="section-shell">
-        <div className="product-showcase-heading" data-reveal>
-          <div className="section-heading section-heading-left">
-            <span className="eyebrow">{copy.eyebrow[locale]}</span>
-            <h2>{copy.title[locale]}</h2>
-            <p>{copy.description[locale]}</p>
-          </div>
-          <div className="product-signal-list" aria-label={copy.title[locale]}>
-            {PRODUCT_SIGNALS.map((signal) => (
-              <div className="product-signal" key={signal.title.en}>
-                <span aria-hidden="true" />
-                <div>
-                  <strong>{signal.title[locale]}</strong>
-                  <small>{signal.description[locale]}</small>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        <header className="section-heading vx-centered-heading" data-reveal>
+          <span className="eyebrow">{copy.eyebrow[locale]}</span>
+          <h2>{copy.title[locale]}</h2>
+          <p>{copy.description[locale]}</p>
+        </header>
 
-        <div className="product-frame product-frame-main" data-reveal>
+        <div className="vx-product-frame" data-reveal>
           <div className="product-frame-bar" aria-hidden="true">
             <span />
             <span />
@@ -195,101 +179,241 @@ function ProductShowcase({ locale }: { locale: Locale }) {
             <strong>VantixApp</strong>
           </div>
           <ProductScreenshot
-            source={screenshotSource("conversations-overview")}
+            source={screenshotSource(screenshotId)}
             alt={screenshot.alt[locale]}
-            eager
           />
+        </div>
+
+        <div className="vx-benefits" data-reveal>
+          {copy.benefits.map((benefit) => (
+            <article key={benefit.title.en}>
+              <CheckIcon />
+              <h3>{benefit.title[locale]}</h3>
+              <p>{benefit.description[locale]}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-function FeatureStories({ locale }: { locale: Locale }) {
-  const t = getTranslations(locale);
+function FeatureVisual({
+  id,
+  locale,
+}: {
+  id: (typeof FEATURE_BENTO)[number]["id"];
+  locale: Locale;
+}) {
+  if (id === "agent") {
+    const screenshotId = LANDING_SCREENSHOT_PLACEMENTS.agent;
+    const screenshot = SCREENSHOTS_BY_ID[screenshotId];
+    return (
+      <figure className="vx-agent-shot">
+        <ProductScreenshot
+          source={screenshotSource(screenshotId)}
+          alt={screenshot.alt[locale]}
+        />
+        <figcaption>{LANDING_COPY.features.agentCaption[locale]}</figcaption>
+      </figure>
+    );
+  }
+
+  if (id === "inbox") {
+    return (
+      <div className="vx-capability-cluster" aria-hidden="true">
+        <span>{locale === "es" ? "Conversaciones" : "Conversations"}</span>
+        <span>{locale === "es" ? "Clientes" : "Customers"}</span>
+        <span>{locale === "es" ? "Etiquetas" : "Labels"}</span>
+        <span>{locale === "es" ? "Notas internas" : "Internal notes"}</span>
+      </div>
+    );
+  }
+
+  if (id === "team") {
+    return (
+      <div className="vx-role-list" aria-hidden="true">
+        {["Owner", "Admin", "Agent", "Viewer"].map((role) => (
+          <span key={role}>{role}</span>
+        ))}
+      </div>
+    );
+  }
+
+  if (id === "knowledge") {
+    return (
+      <div className="vx-knowledge-list" aria-hidden="true">
+        <span>PDF</span>
+        <span>{locale === "es" ? "Productos" : "Products"}</span>
+        <span>FAQs</span>
+      </div>
+    );
+  }
 
   return (
-    <section className="section feature-section" id="funciones">
-      <div className="section-shell">
-        <div className="section-heading" data-reveal>
-          <span className="eyebrow">{t.features.eyebrow}</span>
-          <h2>{t.features.title}</h2>
-          <p>{t.features.description}</p>
-        </div>
+    <div className="vx-flow" aria-hidden="true">
+      <span>WhatsApp</span>
+      <i>→</i>
+      <span>n8n</span>
+      <i>→</i>
+      <span>{locale === "es" ? "Acción" : "Action"}</span>
+    </div>
+  );
+}
 
-        <div className="feature-stories">
-          {FEATURE_STORIES.map((story, storyIndex) => {
-            const primary = getFeature(story.featureIds[0]);
-            const screenshot = SCREENSHOTS_BY_ID[story.screenshotId];
-            const companions = story.featureIds
+function FeatureBento({ locale }: { locale: Locale }) {
+  const copy = LANDING_COPY.features;
+
+  return (
+    <section className="section vx-features" id="funciones">
+      <div className="section-shell">
+        <header className="section-heading vx-centered-heading" data-reveal>
+          <span className="eyebrow">{copy.eyebrow[locale]}</span>
+          <h2>{copy.title[locale]}</h2>
+          <p>{copy.description[locale]}</p>
+        </header>
+
+        <div className="vx-bento">
+          {FEATURE_BENTO.map((item) => {
+            const primary = getFeature(item.featureIds[0]);
+            const companions = item.featureIds
               .slice(1)
               .map((id) => getFeature(id));
 
             return (
               <article
-                className={`feature-story feature-story-${story.layout}`}
-                key={story.id}
+                className={`vx-bento-card vx-bento-${item.id} vx-bento-${item.size}`}
+                key={item.id}
                 data-reveal
               >
-                <div className="feature-story-copy">
-                  <div className="feature-kicker">
-                    <span>{String(storyIndex + 1).padStart(2, "0")}</span>
-                    <FeatureStatus status={primary.status} locale={locale} />
-                  </div>
-                  <p className="feature-eyebrow">{primary.eyebrow[locale]}</p>
-                  <h3>{primary.title[locale]}</h3>
-                  <p>{primary.description[locale]}</p>
-                  <ul className="feature-bullets">
-                    {primary.bullets.map((bullet) => (
-                      <li key={bullet.en}>
-                        <CheckIcon />
-                        {bullet[locale]}
-                      </li>
+                <span className="vx-icon-disc">
+                  <LandingIcon name={item.icon} />
+                </span>
+                <p className="vx-bento-kicker">{primary.eyebrow[locale]}</p>
+                <h3>{primary.title[locale]}</h3>
+                <p className="vx-bento-description">
+                  {primary.description[locale]}
+                </p>
+                {companions.length ? (
+                  <div className="vx-companion-list">
+                    {companions.map((feature) => (
+                      <span key={feature.id}>{feature.eyebrow[locale]}</span>
                     ))}
-                  </ul>
-                  {companions.length ? (
-                    <div className="story-capabilities">
-                      <span>{LANDING_COPY.capabilities.label[locale]}</span>
-                      {companions.map((feature) => (
-                        <div key={feature.id}>
-                          <strong>{feature.eyebrow[locale]}</strong>
-                          <small>{feature.title[locale]}</small>
-                        </div>
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
-
-                <div className="feature-story-visual">
-                  <ProductScreenshot
-                    source={screenshotSource(story.screenshotId)}
-                    alt={screenshot.alt[locale]}
-                    eager={(
-                      HERO_SCREENSHOT_IDS as readonly ScreenshotId[]
-                    ).includes(story.screenshotId)}
-                  />
-                  {story.layout === "metrics" ? (
-                    <div className="metrics-mosaic">
-                      {(
-                        [
-                          "metrics-conversations-day",
-                          "metrics-hourly",
-                          "metrics-ai-human",
-                        ] as const
-                      ).map((id) => (
-                        <ProductScreenshot
-                          key={id}
-                          className={`metric-shot metric-shot-${id}`}
-                          source={screenshotSource(id)}
-                          alt={SCREENSHOTS_BY_ID[id].alt[locale]}
-                        />
-                      ))}
-                    </div>
-                  ) : null}
-                </div>
+                  </div>
+                ) : null}
+                <FeatureVisual id={item.id} locale={locale} />
               </article>
             );
           })}
+
+          <article className="vx-bento-card vx-bento-security" data-reveal>
+            <span className="vx-icon-disc">
+              <LandingIcon name="security" />
+            </span>
+            <div>
+              <h3>{copy.security.title[locale]}</h3>
+              <p className="vx-bento-description">
+                {copy.security.description[locale]}
+              </p>
+            </div>
+            <ul>
+              {copy.security.items.map((item) => (
+                <li key={item.en}>
+                  <CheckIcon />
+                  {item[locale]}
+                </li>
+              ))}
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MetricsWall({ locale }: { locale: Locale }) {
+  const copy = LANDING_COPY.metrics;
+  const placements = [
+    {
+      key: "summary",
+      id: LANDING_SCREENSHOT_PLACEMENTS.metricsSummary,
+      label: locale === "es" ? "Resumen del período" : "Period summary",
+    },
+    {
+      key: "day",
+      id: LANDING_SCREENSHOT_PLACEMENTS.metricsDay,
+      label: locale === "es" ? "Conversaciones por día" : "Conversations by day",
+    },
+    {
+      key: "hourly",
+      id: LANDING_SCREENSHOT_PLACEMENTS.metricsHourly,
+      label: locale === "es" ? "Actividad por horario" : "Hourly activity",
+    },
+    {
+      key: "ai-human",
+      id: LANDING_SCREENSHOT_PLACEMENTS.metricsAiHuman,
+      label:
+        locale === "es"
+          ? "IA frente a atención humana"
+          : "AI compared with human service",
+    },
+  ] as const;
+
+  return (
+    <section className="section vx-metrics" id="metricas">
+      <div className="section-shell">
+        <header className="section-heading vx-centered-heading" data-reveal>
+          <span className="eyebrow">{copy.eyebrow[locale]}</span>
+          <h2>{copy.title[locale]}</h2>
+          <p>{copy.description[locale]}</p>
+        </header>
+
+        <div className="vx-metrics-wall" data-reveal>
+          {placements.map(({ key, id, label }) => (
+            <figure className={`vx-metric vx-metric-${key}`} key={id}>
+              <ProductScreenshot
+                source={screenshotSource(id)}
+                alt={SCREENSHOTS_BY_ID[id].alt[locale]}
+              />
+              <figcaption>{label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HowItWorks({ locale }: { locale: Locale }) {
+  const copy = LANDING_COPY.steps;
+  const icons: readonly LandingIconName[] = [
+    "workspace",
+    "knowledge",
+    "connect",
+  ];
+
+  return (
+    <section className="section vx-process" id="como-funciona">
+      <div className="section-shell">
+        <header className="section-heading vx-centered-heading" data-reveal>
+          <span className="eyebrow">{copy.eyebrow[locale]}</span>
+          <h2>{copy.title[locale]}</h2>
+          <p>{copy.description[locale]}</p>
+        </header>
+
+        <div className="vx-process-track" data-reveal>
+          <span className="vx-process-line" aria-hidden="true">
+            <i />
+          </span>
+          {copy.items.map((item, index) => (
+            <article key={item.title.en}>
+              <span className="vx-process-icon">
+                <LandingIcon name={icons[index]} />
+              </span>
+              <h3>{item.title[locale]}</h3>
+              <p>{item.description[locale]}</p>
+            </article>
+          ))}
         </div>
       </div>
     </section>
@@ -297,152 +421,48 @@ function FeatureStories({ locale }: { locale: Locale }) {
 }
 
 function Integrations({ locale }: { locale: Locale }) {
-  const t = getTranslations(locale);
+  const copy = LANDING_COPY.integrations;
+  const repeated = [...INTEGRATIONS, ...INTEGRATIONS];
 
   return (
-    <section className="section integrations-section" id="integraciones">
+    <section className="section vx-integrations" id="integraciones">
       <div className="section-shell">
-        <div className="integration-heading" data-reveal>
-          <div className="section-heading section-heading-left">
-            <span className="eyebrow">{t.integrations.eyebrow}</span>
-            <h2>{t.integrations.title}</h2>
-            <p>{t.integrations.description}</p>
-          </div>
-          <p className="integration-truth-note">
-            {LANDING_COPY.integrations.betaNote[locale]}
-          </p>
-        </div>
+        <header className="section-heading vx-centered-heading" data-reveal>
+          <span className="eyebrow">{copy.eyebrow[locale]}</span>
+          <h2>{copy.title[locale]}</h2>
+          <p>{copy.description[locale]}</p>
+        </header>
+      </div>
 
-        <div className="integrations-list" data-reveal>
-          {INTEGRATIONS.map((integration) => (
-            <article className="integration-row" key={integration.id}>
-              <span className="integration-mark">
-                <IntegrationIcon name={integrationIconName(integration.id)} />
+      <div
+        className="vx-integration-band"
+        role="region"
+        aria-label={copy.title[locale]}
+        data-reveal
+      >
+        <div className="vx-integration-track">
+          {repeated.map((integration, index) => (
+            <article
+              className="vx-integration-item"
+              data-integration={integration.id}
+              key={`${integration.id}-${index}`}
+              aria-hidden={index >= INTEGRATIONS.length}
+            >
+              <span>
+                <IntegrationIcon
+                  name={integrationIconName(integration.id)}
+                />
               </span>
               <div>
                 <h3>{integration.name[locale]}</h3>
                 <p>{integration.description[locale]}</p>
-                {"note" in integration && integration.note ? (
-                  <small>{integration.note[locale]}</small>
-                ) : null}
               </div>
-              <FeatureStatus status={integration.status} locale={locale} />
             </article>
           ))}
         </div>
-
-        <p className="billing-clarification">
-          {t.integrations.billingClarification}
-        </p>
       </div>
-    </section>
-  );
-}
 
-function HowItWorks({ locale }: { locale: Locale }) {
-  const t = getTranslations(locale);
-
-  return (
-    <section className="section how-section" id="como-funciona">
-      <div className="section-shell">
-        <div className="section-heading section-heading-left" data-reveal>
-          <span className="eyebrow">{t.howItWorks.eyebrow}</span>
-          <h2>{t.howItWorks.title}</h2>
-          <p>{t.howItWorks.description}</p>
-        </div>
-        <ol className="steps-list" data-reveal>
-          {t.howItWorks.steps.map((step, index) => (
-            <li key={step.title}>
-              <span>{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h3>{step.title}</h3>
-                <p>{step.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
-function UseCasesAndComparison({ locale }: { locale: Locale }) {
-  const copy = LANDING_COPY;
-
-  return (
-    <>
-      <section className="section use-cases-section" id="casos">
-        <div className="section-shell">
-          <div className="section-heading section-heading-left" data-reveal>
-            <span className="eyebrow">{copy.useCases.eyebrow[locale]}</span>
-            <h2>{copy.useCases.title[locale]}</h2>
-            <p>{copy.useCases.description[locale]}</p>
-          </div>
-          <div className="use-case-list">
-            {USE_CASES.map((useCase, index) => (
-              <article className="use-case-row" key={useCase.sector.en} data-reveal>
-                <span className="use-case-number">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3>{useCase.sector[locale]}</h3>
-                <div>
-                  <small>{copy.useCases.problemLabel[locale]}</small>
-                  <p>{useCase.problem[locale]}</p>
-                </div>
-                <div>
-                  <small>{copy.useCases.outcomeLabel[locale]}</small>
-                  <p>{useCase.outcome[locale]}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section comparison-section">
-        <div className="section-shell comparison-layout">
-          <div className="section-heading section-heading-left" data-reveal>
-            <span className="eyebrow">{copy.comparison.eyebrow[locale]}</span>
-            <h2>{copy.comparison.title[locale]}</h2>
-          </div>
-          <div className="comparison-table" data-reveal>
-            <div className="comparison-labels" aria-hidden="true">
-              <span>{copy.comparison.beforeLabel[locale]}</span>
-              <span>{copy.comparison.afterLabel[locale]}</span>
-            </div>
-            {COMPARISON.map((item) => (
-              <div className="comparison-row" key={item.before.en}>
-                <p>
-                  <span aria-hidden="true">—</span>
-                  {item.before[locale]}
-                </p>
-                <p>
-                  <CheckIcon />
-                  {item.after[locale]}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </>
-  );
-}
-
-function Testimonials({ locale }: { locale: Locale }) {
-  const t = getTranslations(locale);
-
-  return (
-    <section className="section testimonials-section" aria-labelledby="testimonials-title">
-      <div className="section-shell">
-        <div className="section-heading" data-reveal>
-          <span className="eyebrow">{t.testimonials.eyebrow}</span>
-          <h2 id="testimonials-title">{t.testimonials.title}</h2>
-          <p>{t.testimonials.description}</p>
-          <small className="demo-disclosure">{t.testimonials.demoNotice}</small>
-        </div>
-      </div>
-      <TestimonialRail testimonials={PUBLISHED_TESTIMONIALS} locale={locale} />
+      <p className="vx-integration-note">{copy.clarification[locale]}</p>
     </section>
   );
 }
@@ -460,13 +480,13 @@ function ContactSection({ locale }: { locale: Locale }) {
       : "Hello, I would like to book a VantixApp demo.";
 
   return (
-    <section className="section contact-section" id="contacto">
-      <div className="section-shell contact-layout">
-        <div className="contact-copy" data-reveal>
+    <section className="section vx-contact" id="contacto">
+      <div className="section-shell">
+        <header className="section-heading vx-centered-heading" data-reveal>
           <span className="eyebrow">{t.contact.eyebrow}</span>
           <h2>{t.contact.title}</h2>
           <p>{t.contact.description}</p>
-          <div className="contact-actions">
+          <div className="vx-contact-actions">
             <a
               className="button button-secondary"
               href={whatsAppLink(message)}
@@ -486,8 +506,8 @@ function ContactSection({ locale }: { locale: Locale }) {
               <ArrowIcon />
             </a>
           </div>
-        </div>
-        <div className="contact-form-panel" data-reveal>
+        </header>
+        <div className="vx-contact-form" data-reveal>
           <ContactForm locale={locale} />
         </div>
       </div>
@@ -497,27 +517,8 @@ function ContactSection({ locale }: { locale: Locale }) {
 
 export function LandingPage({ locale }: { locale: Locale }) {
   const t = getTranslations(locale);
-  const heroSlides = HERO_SCREENSHOT_IDS.map((id) => {
-    const screenshot = SCREENSHOTS_BY_ID[id];
-    return {
-      id,
-      light: screenshot.assets.light.src,
-      dark: screenshot.assets.dark.src,
-      alt: screenshot.alt,
-      caption:
-        id === "conversations-overview"
-          ? {
-              es: "Bandeja, conversación y datos del cliente en una misma vista.",
-              en: "Inbox, active conversation and customer details in one view.",
-            }
-          : {
-              es: "Atención humana con historial, responsable, etiquetas y notas.",
-              en: "Human service with history, ownership, labels and notes.",
-            },
-      width: screenshot.assets.light.width,
-      height: screenshot.assets.light.height,
-    };
-  });
+  const heroScreenshotId = LANDING_SCREENSHOT_PLACEMENTS.hero;
+  const heroScreenshot = SCREENSHOTS_BY_ID[heroScreenshotId];
 
   return (
     <>
@@ -526,64 +527,66 @@ export function LandingPage({ locale }: { locale: Locale }) {
       </a>
       <SiteHeader locale={locale} variant="landing" />
 
-      <main id="contenido">
-        <section className="hero" id="inicio" aria-labelledby="hero-title">
-          <div className="section-shell hero-copy" data-reveal>
-            <span className="eyebrow hero-eyebrow">
-              <i aria-hidden="true" />
-              {t.hero.eyebrow}
-            </span>
-            <h1 id="hero-title">{t.hero.title}</h1>
-            <p>{t.hero.description}</p>
-            <div className="hero-actions">
-              <a className="button" href="#contacto">
-                {t.hero.primaryCta}
-                <ArrowIcon />
-              </a>
-              <a className="button button-secondary" href="#funciones">
-                {t.hero.secondaryCta}
-              </a>
+      <main id="contenido" className="landing-redesign">
+        <section className="vx-hero" id="inicio" aria-labelledby="hero-title">
+          <div className="section-shell vx-hero-inner">
+            <div className="vx-hero-copy">
+              <span className="eyebrow vx-hero-eyebrow">
+                <i aria-hidden="true" />
+                {t.hero.eyebrow}
+              </span>
+              <h1 id="hero-title">
+                {t.hero.titleLead}
+                <strong>{t.hero.titleHighlight}</strong>
+              </h1>
+              <p>{t.hero.description}</p>
+              <div className="vx-hero-actions">
+                <a
+                  className="button"
+                  href={APP_REGISTER_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {t.hero.primaryCta}
+                  <ArrowIcon />
+                </a>
+                <a className="button button-secondary" href="#contacto">
+                  {t.hero.secondaryCta}
+                </a>
+              </div>
+              <small>{t.hero.trust}</small>
             </div>
-            <small>{t.hero.trust}</small>
-          </div>
-          <div className="section-shell hero-showcase" data-reveal>
-            <HeroCarousel slides={heroSlides} locale={locale} />
+
+            <div className="vx-hero-panel">
+              <div className="product-frame-bar" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+                <strong>VantixApp</strong>
+              </div>
+              <ProductScreenshot
+                source={screenshotSource(heroScreenshotId)}
+                alt={heroScreenshot.alt[locale]}
+                eager
+              />
+            </div>
           </div>
         </section>
 
-        <section className="section problems-section" aria-labelledby="problems-title">
-          <div className="section-shell">
-            <div className="section-heading section-heading-left" data-reveal>
-              <span className="eyebrow">{t.problems.eyebrow}</span>
-              <h2 id="problems-title">{t.problems.title}</h2>
-              <p>{t.problems.description}</p>
-            </div>
-            <div className="problem-list" data-reveal>
-              {PROBLEMS.map((problem) => (
-                <article key={problem.number}>
-                  <span>{problem.number}</span>
-                  <h3>{problem.title[locale]}</h3>
-                  <p>{problem.description[locale]}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
+        <TrustStrip locale={locale} />
         <ProductShowcase locale={locale} />
-        <FeatureStories locale={locale} />
+        <FeatureBento locale={locale} />
+        <MetricsWall locale={locale} />
         <HowItWorks locale={locale} />
         <Integrations locale={locale} />
-        <UseCasesAndComparison locale={locale} />
-        <Testimonials locale={locale} />
 
-        <section className="section pricing-section" id="precios">
+        <section className="section vx-pricing pricing-section" id="precios">
           <div className="section-shell">
-            <div className="section-heading" data-reveal>
+            <header className="section-heading vx-centered-heading" data-reveal>
               <span className="eyebrow">{t.pricing.eyebrow}</span>
               <h2>{t.pricing.title}</h2>
               <p>{t.pricing.description}</p>
-            </div>
+            </header>
             <Suspense
               fallback={
                 <div className="pricing-loading" role="status">
@@ -598,14 +601,16 @@ export function LandingPage({ locale }: { locale: Locale }) {
           </div>
         </section>
 
-        <section className="section faq-section" id="preguntas">
-          <div className="section-shell faq-layout">
-            <div className="section-heading section-heading-left" data-reveal>
+        <section className="section vx-faq" id="preguntas">
+          <div className="section-shell">
+            <header className="section-heading vx-centered-heading" data-reveal>
               <span className="eyebrow">{t.faq.eyebrow}</span>
               <h2>{t.faq.title}</h2>
               <p>{t.faq.description}</p>
+            </header>
+            <div className="vx-faq-list" data-reveal>
+              <Faq locale={locale} items={FAQS} />
             </div>
-            <Faq locale={locale} items={FAQS} />
           </div>
         </section>
 

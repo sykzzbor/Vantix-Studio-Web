@@ -1,4 +1,5 @@
 import type {
+  LandingScreenshotPlacementMap,
   ScreenshotDefinition,
   ScreenshotId,
   Theme,
@@ -163,10 +164,22 @@ export const SCREENSHOTS_BY_ID = Object.fromEntries(
   SCREENSHOTS.map((screenshot) => [screenshot.id, screenshot]),
 ) as Readonly<Record<ScreenshotId, (typeof SCREENSHOTS)[number]>>;
 
-export const HERO_SCREENSHOT_IDS = [
-  "conversations-overview",
-  "conversations-human",
-] as const satisfies readonly ScreenshotId[];
+/**
+ * Single source of truth for every product screenshot rendered on the landing.
+ *
+ * `conversations-ai` remains available in SCREENSHOTS, but is intentionally not
+ * assigned here because its dark asset has the same contents as
+ * `conversations-overview`.
+ */
+export const LANDING_SCREENSHOT_PLACEMENTS = {
+  hero: "conversations-overview",
+  product: "conversations-human",
+  agent: "agent-playground",
+  metricsSummary: "metrics-summary",
+  metricsDay: "metrics-conversations-day",
+  metricsHourly: "metrics-hourly",
+  metricsAiHuman: "metrics-ai-human",
+} as const satisfies LandingScreenshotPlacementMap;
 
 export function getScreenshotAsset(id: ScreenshotId, theme: Theme) {
   return SCREENSHOTS_BY_ID[id].assets[theme];

@@ -5,6 +5,5 @@ export * from "@/content/landing";
 export * from "@/content/navigation";
 export * from "@/content/pricing";
 export * from "@/content/screenshots";
-export * from "@/content/testimonials";
 export * from "@/content/translations";
 export * from "@/content/types";

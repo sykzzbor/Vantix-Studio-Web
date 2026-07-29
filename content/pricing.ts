@@ -99,8 +99,8 @@ export const PLANS = [
         en: "Teams, ownership, roles and permissions",
       },
       {
-        es: "Automatizaciones en beta",
-        en: "Beta automations",
+        es: "Automatizaciones conectadas",
+        en: "Connected automations",
       },
     ],
     cta: "startTrial",

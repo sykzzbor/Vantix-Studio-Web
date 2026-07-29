@@ -9,7 +9,7 @@ export function Brand({ footer = false }: { footer?: boolean }) {
         width={360}
         height={41}
         sizes={footer ? "144px" : "120px"}
-        preload={!footer}
+        loading={footer ? "lazy" : "eager"}
       />
     </span>
   );
