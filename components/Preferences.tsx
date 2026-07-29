@@ -1,7 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useSyncExternalStore } from "react";
+import {
+  type KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from "react";
 
 type Locale = "es" | "en";
 type Theme = "light" | "dark";
@@ -78,6 +85,43 @@ export function LanguageSwitch({
   spanishHref: string;
   englishHref: string;
 }) {
+  const [open, setOpen] = useState(false);
+  const switchRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const menuId = useId();
+  const isSpanish = locale === "es";
+
+  useEffect(() => {
+    if (!open) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!switchRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setOpen(false);
+      triggerRef.current?.focus();
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    window.requestAnimationFrame(() => {
+      menuRef.current
+        ?.querySelector<HTMLElement>('[role="menuitem"]')
+        ?.focus();
+    });
+
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
   function remember(next: Locale) {
     document.documentElement.lang = next === "es" ? "es-AR" : "en";
 
@@ -92,31 +136,119 @@ export function LanguageSwitch({
     } catch {
       // El enlace sigue resolviendo la ruta aunque las cookies estén bloqueadas.
     }
+
+    setOpen(false);
+  }
+
+  function handleMenuKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+
+    const items = Array.from(
+      menuRef.current?.querySelectorAll<HTMLElement>('[role="menuitem"]') ?? [],
+    );
+    if (items.length === 0) return;
+
+    event.preventDefault();
+    const currentIndex = items.indexOf(document.activeElement as HTMLElement);
+    const nextIndex =
+      event.key === "Home"
+        ? 0
+        : event.key === "End"
+          ? items.length - 1
+          : event.key === "ArrowUp"
+            ? (currentIndex - 1 + items.length) % items.length
+            : (currentIndex + 1) % items.length;
+
+    items[nextIndex]?.focus();
   }
 
   return (
-    <span
+    <div
+      ref={switchRef}
       className="language-switch"
-      role="group"
       aria-label={locale === "es" ? "Elegir idioma" : "Choose language"}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
+          setOpen(false);
+        }
+      }}
     >
-      <Link
-        href={spanishHref}
-        hrefLang="es-AR"
-        aria-current={locale === "es" ? "page" : undefined}
-        onClick={() => remember("es")}
+      <button
+        ref={triggerRef}
+        className="language-trigger"
+        type="button"
+        aria-expanded={open}
+        aria-haspopup="menu"
+        aria-controls={menuId}
+        aria-label={
+          locale === "es"
+            ? `Idioma actual: ${isSpanish ? "Español" : "Inglés"}. Cambiar idioma`
+            : `Current language: ${isSpanish ? "Spanish" : "English"}. Change language`
+        }
+        onClick={() => setOpen((value) => !value)}
       >
-        ES
-      </Link>
-      <i aria-hidden="true">/</i>
-      <Link
-        href={englishHref}
-        hrefLang="en"
-        aria-current={locale === "en" ? "page" : undefined}
-        onClick={() => remember("en")}
+        <span className="language-flag" aria-hidden="true">
+          {isSpanish ? "🇪🇸" : "🇺🇸"}
+        </span>
+        <span>{isSpanish ? "ES" : "EN"}</span>
+        <svg
+          className="language-chevron"
+          viewBox="0 0 16 16"
+          aria-hidden="true"
+        >
+          <path d="m4.5 6 3.5 3.5L11.5 6" />
+        </svg>
+      </button>
+
+      <div
+        ref={menuRef}
+        id={menuId}
+        className="language-menu"
+        role="menu"
+        aria-label={locale === "es" ? "Idiomas" : "Languages"}
+        hidden={!open}
+        onKeyDown={handleMenuKeyDown}
       >
-        EN
-      </Link>
-    </span>
+        <Link
+          className="language-option"
+          href={spanishHref}
+          hrefLang="es-AR"
+          role="menuitem"
+          aria-current={isSpanish ? "page" : undefined}
+          onClick={() => remember("es")}
+        >
+          <span className="language-flag" aria-hidden="true">
+            🇪🇸
+          </span>
+          <span className="language-option-copy">
+            <strong>Español</strong>
+            <small>Argentina</small>
+          </span>
+          <span className="language-check" aria-hidden="true">
+            {isSpanish ? "✓" : ""}
+          </span>
+        </Link>
+
+        <Link
+          className="language-option"
+          href={englishHref}
+          hrefLang="en"
+          role="menuitem"
+          aria-current={!isSpanish ? "page" : undefined}
+          onClick={() => remember("en")}
+        >
+          <span className="language-flag" aria-hidden="true">
+            🇺🇸
+          </span>
+          <span className="language-option-copy">
+            <strong>English</strong>
+            <small>United States</small>
+          </span>
+          <span className="language-check" aria-hidden="true">
+            {!isSpanish ? "✓" : ""}
+          </span>
+        </Link>
+      </div>
+    </div>
   );
 }

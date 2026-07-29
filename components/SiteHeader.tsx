@@ -71,7 +71,7 @@ export function SiteHeader({
   }, []);
 
   useEffect(() => {
-    const desktopQuery = window.matchMedia("(min-width: 73.75rem)");
+    const desktopQuery = window.matchMedia("(min-width: 78rem)");
     const closeOnDesktop = (event: MediaQueryListEvent) => {
       if (event.matches) setOpen(false);
     };
@@ -166,7 +166,7 @@ export function SiteHeader({
         </nav>
 
         <div className="header-actions">
-          <div className="header-preferences desktop-preferences">
+          <div className="header-preferences">
             <LanguageSwitch
               locale={locale}
               spanishHref={paths.es}
@@ -235,15 +235,6 @@ export function SiteHeader({
               {item.label[locale]}
             </Link>
           ))}
-
-          <div className="mobile-preferences">
-            <LanguageSwitch
-              locale={locale}
-              spanishHref={paths.es}
-              englishHref={paths.en}
-            />
-            <ThemeToggle locale={locale} />
-          </div>
 
           <div className="mobile-nav-actions">
             <a
