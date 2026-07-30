@@ -11,6 +11,7 @@ import {
 import {
   NAVIGATION,
   NAVIGATION_ACTIONS,
+  SOLUTION_NAVIGATION,
   getTranslations,
   type Locale,
 } from "@/content";
@@ -50,6 +51,7 @@ export function SiteHeader({
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobileNavigationRef = useRef<HTMLElement>(null);
+  const solutionsRef = useRef<HTMLDetailsElement>(null);
   const translations = getTranslations(locale);
   const localizedHome = locale === "es" ? "/" : "/en";
   const paths = languagePaths ?? defaultLanguagePaths(variant);
@@ -61,6 +63,11 @@ export function SiteHeader({
 
   function sectionHref(href: string) {
     return isLanding ? href : `${localizedHome}${href}`;
+  }
+
+  function solutionHref(id: string, href: string) {
+    if (id === "vantixapp" && isLanding) return "#inicio";
+    return href;
   }
 
   useEffect(() => {
@@ -78,6 +85,32 @@ export function SiteHeader({
 
     desktopQuery.addEventListener("change", closeOnDesktop);
     return () => desktopQuery.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  useEffect(() => {
+    const closeSolutions = (event: PointerEvent) => {
+      const disclosure = solutionsRef.current;
+      if (
+        disclosure?.open &&
+        !disclosure.contains(event.target as Node)
+      ) {
+        disclosure.open = false;
+      }
+    };
+
+    const closeSolutionsWithKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && solutionsRef.current?.open) {
+        solutionsRef.current.open = false;
+        solutionsRef.current.querySelector("summary")?.focus();
+      }
+    };
+
+    document.addEventListener("pointerdown", closeSolutions);
+    document.addEventListener("keydown", closeSolutionsWithKeyboard);
+    return () => {
+      document.removeEventListener("pointerdown", closeSolutions);
+      document.removeEventListener("keydown", closeSolutionsWithKeyboard);
+    };
   }, []);
 
   useEffect(() => {
@@ -158,7 +191,30 @@ export function SiteHeader({
             locale === "es" ? "Navegación principal" : "Main navigation"
           }
         >
-          {NAVIGATION.map((item) => (
+          <details ref={solutionsRef} className="solutions-switcher">
+            <summary>
+              {locale === "es" ? "Soluciones" : "Solutions"}
+              <span className="solutions-chevron" aria-hidden="true" />
+            </summary>
+            <div className="solutions-popover">
+              {SOLUTION_NAVIGATION.map((solution) => (
+                <Link
+                  className="solution-link"
+                  href={solutionHref(solution.id, solution.href[locale])}
+                  key={solution.id}
+                  onClick={() => {
+                    if (solutionsRef.current) {
+                      solutionsRef.current.open = false;
+                    }
+                  }}
+                >
+                  <strong>{solution.label[locale]}</strong>
+                </Link>
+              ))}
+            </div>
+          </details>
+
+          {NAVIGATION.filter((item) => item.id !== "product").map((item) => (
             <Link key={item.id} href={sectionHref(item.href)}>
               {item.label[locale]}
             </Link>
@@ -230,7 +286,25 @@ export function SiteHeader({
         }}
       >
         <div className="mobile-nav-inner">
-          {NAVIGATION.map((item) => (
+          <details className="mobile-solutions">
+            <summary>
+              {locale === "es" ? "Soluciones" : "Solutions"}
+              <span className="solutions-chevron" aria-hidden="true" />
+            </summary>
+            <div className="mobile-solutions-list">
+              {SOLUTION_NAVIGATION.map((solution) => (
+                <Link
+                  className="mobile-solution-link"
+                  href={solutionHref(solution.id, solution.href[locale])}
+                  key={solution.id}
+                >
+                  {solution.label[locale]}
+                </Link>
+              ))}
+            </div>
+          </details>
+
+          {NAVIGATION.filter((item) => item.id !== "product").map((item) => (
             <Link key={item.id} href={sectionHref(item.href)}>
               {item.label[locale]}
             </Link>

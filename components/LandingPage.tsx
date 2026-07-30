@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Suspense } from "react";
 import { ArrowIcon } from "@/components/ArrowIcon";
 import { ContactForm } from "@/components/ContactForm";
@@ -249,6 +250,31 @@ function Integrations({ locale }: { locale: Locale }) {
   );
 }
 
+function WebServicesBanner({ locale }: { locale: Locale }) {
+  const copy = LANDING_COPY.webServicesBanner;
+  const href = locale === "es" ? "/servicios" : "/en/services";
+
+  return (
+    <aside
+      className="vx-web-services-banner"
+      aria-labelledby="web-services-banner-title"
+    >
+      <div className="section-shell">
+        <div className="vx-web-services-banner-inner" data-reveal>
+          <div>
+            <h2 id="web-services-banner-title">{copy.title[locale]}</h2>
+            <p>{copy.description[locale]}</p>
+          </div>
+          <Link className="text-link" href={href}>
+            {copy.cta[locale]}
+            <ArrowIcon />
+          </Link>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
 async function PricingContent({ locale }: { locale: Locale }) {
   const exchange = await getPlansExchangeRate();
   return <PricingSection exchange={exchange} locale={locale} />;
@@ -393,6 +419,7 @@ export function LandingPage({ locale }: { locale: Locale }) {
         </section>
 
         <ContactSection locale={locale} />
+        <WebServicesBanner locale={locale} />
       </main>
 
       <SiteFooter locale={locale} variant="landing" />

@@ -14,9 +14,9 @@ export const SCREENSHOTS = [
     },
     assets: {
       light: {
-        src: "/screenshots/light/conversations-overview.jpeg",
+        src: "/screenshots/light/conversations-crm-hero.png",
         width: 1280,
-        height: 647,
+        height: 646,
       },
       dark: {
         src: "/screenshots/dark/conversations-overview.jpeg",

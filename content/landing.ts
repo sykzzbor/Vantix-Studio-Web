@@ -138,6 +138,20 @@ export const LANDING_COPY = {
       en: "Mercado Pago is used for VantixApp plan billing.",
     },
   },
+  webServicesBanner: {
+    title: {
+      es: "¿Necesitás una página web?",
+      en: "Need a website?",
+    },
+    description: {
+      es: "También hacemos landing pages, sitios y e-commerce a medida.",
+      en: "We also build custom landing pages, websites and e-commerce stores.",
+    },
+    cta: {
+      es: "Ver servicios web",
+      en: "Explore web services",
+    },
+  },
   contact: {
     whatsapp: { es: "Consultar por WhatsApp", en: "Message us on WhatsApp" },
     note: {
@@ -172,6 +186,11 @@ export const LANDING_COPY = {
     title: LocalizedText;
     description: LocalizedText;
     clarification: LocalizedText;
+  };
+  webServicesBanner: {
+    title: LocalizedText;
+    description: LocalizedText;
+    cta: LocalizedText;
   };
   contact: {
     whatsapp: LocalizedText;

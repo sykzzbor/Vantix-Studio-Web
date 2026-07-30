@@ -31,6 +31,19 @@ export const NAVIGATION = [
   },
 ] as const satisfies readonly NavigationItem[];
 
+export const SOLUTION_NAVIGATION = [
+  {
+    id: "vantixapp",
+    href: { es: "/", en: "/en" },
+    label: { es: "VantixApp", en: "VantixApp" },
+  },
+  {
+    id: "web-design",
+    href: { es: "/servicios", en: "/en/services" },
+    label: { es: "Diseño web", en: "Web design" },
+  },
+] as const;
+
 export const NAVIGATION_ACTIONS = [
   {
     id: "login",
