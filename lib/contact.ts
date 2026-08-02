@@ -15,6 +15,7 @@ export const CONTACT_RATE_LIMIT = {
 } as const;
 
 export type ContactLocale = "es" | "en";
+export type ContactInterest = "vantixapp" | "web-services";
 
 export type ContactValidationErrorCode =
   | "required"
@@ -43,6 +44,7 @@ export interface ContactSubmission {
   conversationVolume: string;
   message: string;
   locale: ContactLocale;
+  interest: ContactInterest;
   submissionId: string;
 }
 
@@ -161,6 +163,7 @@ export function validateContactSubmission(
     conversationVolume: sanitizeContactText(source.conversationVolume),
     message: sanitizeContactText(source.message, { multiline: true }),
     locale: source.locale === "en" ? "en" : "es",
+    interest: source.interest === "web-services" ? "web-services" : "vantixapp",
     submissionId: sanitizeContactText(source.submissionId),
   };
   const errors: ContactFieldErrors = {};

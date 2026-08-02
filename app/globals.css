@@ -1683,11 +1683,13 @@ html[data-theme="dark"] .integration-logo {
 
 .contact-form {
   display: grid;
+  min-width: 0;
   gap: 1rem;
 }
 
 .contact-form label {
   display: grid;
+  min-width: 0;
   gap: 0.38rem;
   color: var(--ink-soft);
   font-size: 0.72rem;
@@ -1697,6 +1699,7 @@ html[data-theme="dark"] .integration-logo {
 .contact-form input,
 .contact-form textarea {
   width: 100%;
+  min-width: 0;
   border: 1px solid var(--line-strong);
   border-radius: 0.65rem;
   background: var(--bg);
@@ -3901,6 +3904,14 @@ html[data-theme="dark"] .vx-process-emoji {
   order: -1;
   border: 0;
   border-bottom: 1px solid var(--line);
+}
+
+.services-redesign .service-image-brand {
+  background: #0f1014;
+}
+
+.services-redesign .service-image-brand img {
+  padding: clamp(1rem, 3vw, 2rem);
 }
 
 .services-redesign .split-heading {

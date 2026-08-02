@@ -45,8 +45,8 @@ const copy = {
       {
         title: "Sistemas personalizados",
         text: "Herramientas internas para organizar clientes, turnos, operaciones y datos sin depender de planillas dispersas.",
-        image: "/images/vantix-hero-1280w.webp",
-        alt: "Identidad de Vantix aplicada a software a medida",
+        image: "/brand/isotipo-fondo-original.png",
+        alt: "Isotipo oficial de Vantix",
         imagePosition: "center",
       },
     ],
@@ -151,8 +151,8 @@ const copy = {
       {
         title: "Custom systems",
         text: "Internal tools that organize customers, appointments, operations and data without relying on scattered spreadsheets.",
-        image: "/images/vantix-hero-1280w.webp",
-        alt: "Vantix identity applied to custom software",
+        image: "/brand/isotipo-fondo-original.png",
+        alt: "Official Vantix symbol",
         imagePosition: "center",
       },
     ],
@@ -261,14 +261,26 @@ export function ServicesPage({ locale }: ServicesPageProps) {
                       {text.serviceCta} <ArrowIcon />
                     </a>
                   </div>
-                  <div className="service-image">
+                  <div
+                    className={`service-image${
+                      service.image === "/brand/isotipo-fondo-original.png"
+                        ? " service-image-brand"
+                        : ""
+                    }`}
+                  >
                     <Image
                       src={service.image}
                       alt={service.alt}
                       fill
                       sizes="(max-width: 767px) 100vw, 58vw"
                       loading={index === 0 ? "eager" : "lazy"}
-                      style={{ objectPosition: service.imagePosition }}
+                      style={{
+                        objectPosition: service.imagePosition,
+                        objectFit:
+                          service.image === "/brand/isotipo-fondo-original.png"
+                            ? "contain"
+                            : "cover",
+                      }}
                     />
                   </div>
                 </article>
@@ -361,7 +373,7 @@ export function ServicesPage({ locale }: ServicesPageProps) {
                 {text.contact.whatsapp} <ArrowIcon />
               </a>
             </div>
-            <ContactForm locale={locale} />
+            <ContactForm locale={locale} variant="web-services" />
           </div>
         </section>
       </main>

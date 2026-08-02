@@ -51,24 +51,33 @@ function getClientIdentifier(request: Request): string {
 }
 
 function createEmailContent(data: ContactSubmission) {
+  const isWebServices = data.interest === "web-services";
   const labels =
     data.locale === "en"
       ? {
-          title: "New Vantix website enquiry",
+          title: isWebServices
+            ? "New web services enquiry"
+            : "New VantixApp enquiry",
           name: "Name",
           business: "Business",
           email: "Email",
           phone: "Phone",
-          volume: "Approximate conversations",
+          volume: isWebServices
+            ? "Project type"
+            : "Approximate conversations",
           message: "Message",
         }
       : {
-          title: "Nueva consulta desde la web de Vantix",
+          title: isWebServices
+            ? "Nueva consulta por servicios web"
+            : "Nueva consulta por VantixApp",
           name: "Nombre",
           business: "Negocio",
           email: "Email",
           phone: "Teléfono",
-          volume: "Conversaciones aproximadas",
+          volume: isWebServices
+            ? "Tipo de proyecto"
+            : "Conversaciones aproximadas",
           message: "Mensaje",
         };
   const safe = {

@@ -14,6 +14,7 @@ import { ArrowIcon } from "./ArrowIcon";
 
 interface ContactFormProps {
   locale?: ContactLocale;
+  variant?: "vantixapp" | "web-services";
 }
 
 interface FormValues {
@@ -67,6 +68,29 @@ const FORM_COPY = {
   },
 } as const;
 
+const WEB_SERVICES_COPY = {
+  es: {
+    businessLabel: "Negocio o proyecto",
+    businessPlaceholder: "Nombre del negocio o proyecto",
+    projectLabel: "Tipo de proyecto",
+    projectPlaceholder: "Landing, sitio web, e-commerce o sistema",
+    messageLabel: "Contanos qué necesitás",
+    messagePlaceholder:
+      "Contanos el objetivo, el alcance o el plazo que tenés en mente.",
+    submit: "Enviar consulta",
+  },
+  en: {
+    businessLabel: "Business or project",
+    businessPlaceholder: "Business or project name",
+    projectLabel: "Project type",
+    projectPlaceholder: "Landing page, website, e-commerce or system",
+    messageLabel: "Tell us what you need",
+    messagePlaceholder:
+      "Tell us about your goal, scope or the timeline you have in mind.",
+    submit: "Send enquiry",
+  },
+} as const;
+
 function createSubmissionId() {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
@@ -79,12 +103,35 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
 }
 
-export function ContactForm({ locale = "es" }: ContactFormProps) {
+export function ContactForm({
+  locale = "es",
+  variant = "vantixapp",
+}: ContactFormProps) {
   const contactTranslations = getTranslations(locale).contact;
+  const webServicesCopy = WEB_SERVICES_COPY[locale];
+  const isWebServices = variant === "web-services";
   const copy = {
-    labels: contactTranslations.fields,
-    placeholders: contactTranslations.placeholders,
-    submit: contactTranslations.submit,
+    labels: {
+      ...contactTranslations.fields,
+      ...(isWebServices
+        ? {
+            business: webServicesCopy.businessLabel,
+            conversationVolume: webServicesCopy.projectLabel,
+            message: webServicesCopy.messageLabel,
+          }
+        : {}),
+    },
+    placeholders: {
+      ...contactTranslations.placeholders,
+      ...(isWebServices
+        ? {
+            business: webServicesCopy.businessPlaceholder,
+            conversationVolume: webServicesCopy.projectPlaceholder,
+            message: webServicesCopy.messagePlaceholder,
+          }
+        : {}),
+    },
+    submit: isWebServices ? webServicesCopy.submit : contactTranslations.submit,
     submitting: contactTranslations.sending,
     success: contactTranslations.success,
     error: contactTranslations.error,
@@ -147,6 +194,7 @@ export function ContactForm({ locale = "es" }: ContactFormProps) {
     const payload = {
       ...values,
       locale,
+      interest: variant,
       submissionId: submissionIdRef.current,
     };
     const validation = validateContactSubmission(payload);
@@ -301,7 +349,7 @@ export function ContactForm({ locale = "es" }: ContactFormProps) {
             updateValue("conversationVolume", event.target.value)
           }
           placeholder={copy.placeholders.conversationVolume}
-          inputMode="numeric"
+          inputMode={isWebServices ? "text" : "numeric"}
           maxLength={CONTACT_FIELD_LIMITS.conversationVolume.max}
           aria-invalid={Boolean(errors.conversationVolume)}
           aria-describedby={fieldDescription("conversationVolume")}

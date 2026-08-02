@@ -35,8 +35,23 @@ test("valida y sanitiza una consulta completa", () => {
     message:
       "Necesitamos ordenar las consultas.\nQueremos coordinar una demo.",
     locale: "es",
+    interest: "vantixapp",
     submissionId: "123e4567-e89b-12d3-a456-426614174000",
   });
+});
+
+test("clasifica correctamente una consulta por servicios web", () => {
+  const result = validateContactSubmission({
+    ...VALID_SUBMISSION,
+    conversationVolume: "E-commerce",
+    interest: "web-services",
+  });
+
+  assert.equal(result.ok, true);
+  if (!result.ok) return;
+
+  assert.equal(result.data.interest, "web-services");
+  assert.equal(result.data.conversationVolume, "E-commerce");
 });
 
 test("rechaza campos inválidos y detecta el honeypot", () => {
